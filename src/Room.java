@@ -15,19 +15,20 @@
 public class Room 
 {
     public String description;
-    
+
     // Exits from the room
-    public Room northExit;
-    public Room southExit;
-    public Room eastExit;
-    public Room westExit;
-    
+    private Room northExit;
+    private Room southExit;
+    private Room eastExit;
+    private Room westExit;
+
     // An item in the room
-    public String itemDescription;
-    public int itemWeight;
-    
+    private String itemDescription;
+
+     private int itemWeight;
+
     // Characters in the room
-    public String character;
+    private String character;
 
     /**
      * Create a room described "description". Initially, it has
@@ -58,6 +59,56 @@ public class Room
             southExit = south;
         if(west != null)
             westExit = west;
+    }
+
+    public String getCharacter() {
+        return character;
+    }
+
+    public void setCharacter(String character) {
+        this.character = character;
+    }
+
+    public int getItemWeight() {
+        return itemWeight;
+    }
+
+    public void setItemWeight(int itemWeight) {
+        this.itemWeight = itemWeight;
+    }
+
+    /**
+     * Items are returned
+     * @return
+     */
+    public String getItemDescription() {
+        return itemDescription;
+    }
+
+    public void setItemDescription(String itemDescription) {
+        this.itemDescription = itemDescription;
+    }
+
+    /**
+     * @param direction
+     * @return
+     */
+
+    public Room getExits(String direction){
+        if(direction.equals("north")){
+            return northExit;
+        }
+        else if(direction.equals("east")){
+            return eastExit;
+        }
+        else if(direction.equals("south")){
+            return southExit;
+        }
+        else if(direction.equals("west")){
+            return westExit;
+        }else{
+            return null;
+        }
     }
 
     /**
