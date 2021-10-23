@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Class Room - a room in an adventure game.
@@ -134,6 +135,35 @@ public class Room
             System.out.println("This room does not contain" + description);
             return null;
         }
+    }
+
+    /**
+     *
+     * returns all exits of the room in a string
+     */
+    public String getRoomExitDetails(){
+        StringBuilder roomDetails=new StringBuilder("Exits: ");
+        Set<String> roomExitDirections=exits.keySet();
+        for(String roomExits:roomExitDirections){
+            roomDetails.append(roomExits).append(" ");
+        }
+        return roomDetails.toString();
+    }
+
+    /**
+     *
+     * returns all details of a room including its all exits in all directions and items and weights of those items
+     */
+    public String getDetailedDescription(){
+        StringBuilder detailedDescription=new StringBuilder();
+
+        detailedDescription.append("You are ").append(getDescription()).append("\n").append(getRoomExitDetails()).append("\n")
+                .append("Items: ");
+
+        if (getItemDescription() != null) {
+            detailedDescription.append(getItemDescription()).append('(').append(getItemWeight()).append(')');
+        }
+       return detailedDescription.toString();
     }
     
 }
