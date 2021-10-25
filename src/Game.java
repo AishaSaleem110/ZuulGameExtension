@@ -299,6 +299,6 @@ public class Game {
         }
     }
     private void printLocationInfo(){
-      System.out.println(currentRoom.getDetailedDescription());
+      System.out.println(currentRoom.getRoomDetailedDescription());
     }
 }

@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -18,20 +20,12 @@ import java.util.Set;
 public class Room 
 {
     public String description;
-
-/*    // Exits from the room
-    private Room northExit;
-    private Room southExit;
-    private Room eastExit;
-    private Room westExit;
-*/
-
     private HashMap<String,Room> exits;
-    // An item in the room
-    private String itemDescription;
-    private int itemWeight;
+
     // Characters in the room
     private String character;
+
+    private ArrayList<Item> items;
 
     /**
      * Create a room described "description". Initially, it has
@@ -43,6 +37,7 @@ public class Room
     {
         this.description = description;
         this.exits=new HashMap<>();
+        this.items =new ArrayList<>();
     }
 
     /**
@@ -64,31 +59,6 @@ public class Room
         this.character = character;
     }
 
-    public int getItemWeight() {
-        return itemWeight;
-    }
-
-    public void setItemWeight(int itemWeight) {
-        this.itemWeight = itemWeight;
-    }
-
-    /**
-     * Items are returned
-     * @return
-     */
-    public String getItemDescription() {
-        return itemDescription;
-    }
-
-    public void setItemDescription(String itemDescription) {
-        this.itemDescription = itemDescription;
-    }
-
-    /**
-     * @param direction
-     * @return
-     */
-
     public Room getExits(String direction){
        return exits.get(direction);
     }
@@ -107,8 +77,9 @@ public class Room
      * @param weight The item's weight
      */
     public void addItem(String description, int weight) {
-        itemDescription = description;
-        itemWeight = weight;               
+        Item item=new Item(description,weight);
+        this.items.add(item);
+
     }
     
     /**
@@ -117,25 +88,36 @@ public class Room
      * @ return the item's weight or 0 if none
      */
     public int containsItem(String description) {
-        if (itemDescription.equals(description)) 
-            return itemWeight;
-        else return 0;
+
+        Iterator iterator = this.items.iterator();
+        Item requiredItem=Item.findAnItem(iterator,description);
+
+        if(requiredItem!=null){
+            return requiredItem.getItemWeight();
+        }else{
+            /* if no item with the given description is found */
+            return 0;
+        }
+
     }
     
     /**
      * Remove an item from the Room
      */
     public String removeItem(String description) {
-        if (itemDescription.equals(description)) {
-            String tmp = itemDescription;
-            itemDescription = null;
-            return tmp;
-        }
-        else {
-            return "This room does not contain" + description;
+        Iterator iterator = this.items.iterator();
+        Item requiredItem=Item.findAnItem(iterator,description);
 
+        if(requiredItem!=null){
+            this.items.remove(requiredItem);
+            return requiredItem.getItemDescription();
+        }else{
+            /* if no item with the given description is found */
+            return "This room does not contain" + description;
         }
+
     }
+
 
     /**
      *
@@ -150,19 +132,31 @@ public class Room
         return roomDetails.toString();
     }
 
+    /**if room contains items then this method returns all details in a string**/
+    public String getRoomItemDetails(){
+        StringBuilder roomItemDetails=new StringBuilder();
+        if (this.items != null) {
+            Iterator iterator=this.items.iterator();
+            while (iterator.hasNext()){
+                Item item= (Item) iterator.next();
+                roomItemDetails.append(item.getItemsDetailString()).append("\n");
+            }
+
+        }
+        return roomItemDetails.toString();
+    }
+
     /**
      *
-     * returns all details of a room including its all exits in all directions and items and weights of those items
+     * returns all details of a room including its all exits in all directions and items and weights of those items in a string
      */
-    public String getDetailedDescription(){
+    public String getRoomDetailedDescription(){
         StringBuilder detailedDescription=new StringBuilder();
 
-        detailedDescription.append("You are ").append(getDescription()).append("\n").append(getRoomExitDetails()).append("\n")
-                .append("Items: ");
+        detailedDescription.append("You are ").append(getDescription()).append("\n")
+                .append(getRoomExitDetails()).append("\n")
+                .append("Items: ").append(getRoomItemDetails()).append("\n");
 
-        if (getItemDescription() != null) {
-            detailedDescription.append(getItemDescription()).append('(').append(getItemWeight()).append(')');
-        }
        return detailedDescription.toString();
     }
     
