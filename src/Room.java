@@ -132,8 +132,8 @@ public class Room
             return tmp;
         }
         else {
-            System.out.println("This room does not contain" + description);
-            return null;
+            return "This room does not contain" + description;
+
         }
     }
 
