@@ -68,7 +68,7 @@ public class Parser
         }
     }
 
-    public void showAllCommands(){
-        commands.printAllCommands();
+    public String showAllCommands(){
+        return commands.printAllCommands();
     }
 }

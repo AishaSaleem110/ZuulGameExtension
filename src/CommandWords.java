@@ -25,10 +25,15 @@ public class CommandWords
     }
 
 
-    public void printAllCommands(){
+    /**
+     * This method prints list of all valid commands
+     */
+    public String printAllCommands(){
+        StringBuilder commandListString=new StringBuilder();
         for(String commands:validCommands){
-            System.out.print(commands+" ");
+            commandListString.append(commands).append(" ");
         }
+        return commandListString.toString();
     }
     /**
      * Check whether a given String is a valid command word. 
