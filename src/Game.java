@@ -20,7 +20,6 @@ import java.util.ArrayList;
 public class Game {
 
     private Parser parser;
-    private Room currentRoom;
     private Player player;
 
 
@@ -28,18 +27,15 @@ public class Game {
      * Create the game and initialise its internal map.
      */
     public Game() {
-        createRooms();
-        player=new Player();
+        Room entryRoom=createRooms();
+        player=new Player(entryRoom);
         parser = new Parser();
-        /*items = new ArrayList();
-        weights = new ArrayList();
-        totalWeight = 0;*/
     }
 
     /**
      * Create all the rooms and link their exits together.
      */
-    private void createRooms() {
+    private Room createRooms() {
         Room outside, theatre, pub, lab, office;
         // create the rooms
         outside = new Room("outside the main entrance of the university");
@@ -76,7 +72,8 @@ public class Game {
         office.setExit("south",null);
         office.setExit("west",lab);
 
-        currentRoom = outside;  // start game outside
+        //currentRoom = outside;  // start game outside
+        return outside;
     }
 
     /**
@@ -171,22 +168,22 @@ public class Game {
         // Try to leave current room.
         Room nextRoom = null;
         if (direction.equals("north")) {
-            nextRoom = currentRoom.getExits("north");
+            nextRoom = this.player.getCurrentRoom().getExits("north");
         }
         if (direction.equals("east")) {
-            nextRoom = currentRoom.getExits("east");
+            nextRoom = this.player.getCurrentRoom().getExits("east");
         }
         if (direction.equals("south")) {
-            nextRoom = currentRoom.getExits("south");
+            nextRoom = this.player.getCurrentRoom().getExits("south");
         }
         if (direction.equals("west")) {
-            nextRoom = currentRoom.getExits("west");
+            nextRoom = this.player.getCurrentRoom().getExits("west");
         }
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
         } else {
-            currentRoom = nextRoom;
+            this.player.setCurrentRoom(nextRoom);
            printLocationInfo();
         }
     }
@@ -210,36 +207,9 @@ public class Game {
         }
 
         String item = command.getSecondWord();
-        int w = currentRoom.containsItem(item);
-        if (w == 0) {
-            // The item is not in the room
-            System.out.println("No " + item + " in the room");
-            return;
-        }
+        System.out.println(player.pickItem(item));
 
-       if( player.pickItem(item,w)){
-           // OK we can pick it up
-           currentRoom.removeItem(item);
-       }else {
-           System.out.println(item + " is too heavy");
-       }
 
-       /*
-        System.out.println(item + " is too heavy");
-        else
-         // OK we can pick it up
-        currentRoom.removeItem(item);
-      if (totalWeight + w <= MAX_WEIGHT) {
-            // The player is carrying too much
-            System.out.println(item + " is too heavy");
-            return;
-        }
-        // OK we can pick it up
-        currentRoom.removeItem(item);
-        items.add(item);
-        weights.add(w);
-        totalWeight += w;
-        */
     }
 
     /**
@@ -253,23 +223,9 @@ public class Game {
         }
 
         String item = command.getSecondWord();
-        if (player.dropItem(item)) {
-           // currentRoom.addItem(item, w);
-            currentRoom.addItem(item, 5);
-        }else{
-            System.out.println("You don't have the " + item);
-        }
+        System.out.println(player.dropItem(item));
 
-        /*
-        int i = items.indexOf(item);
-        if (i == -1) {
-            System.out.println("You don't have the " + item);
-            return;
-        }
-        items.remove(i);
-        int w = (Integer) weights.remove(i);
-        currentRoom.addItem(item, w);
-        totalWeight -= w;*/
+
     }
 
     /**
@@ -290,23 +246,9 @@ public class Game {
         String item = command.getSecondWord();
         String whom = command.getThirdWord();
 
-        if (!currentRoom.getCharacter().equals(whom)) {
-            // cannot give it if the chacter is not here
-            System.out.println(whom + " is not in the room");
-            return;
-        }
+        System.out.println(this.player.giveItem(item,whom));
 
-        player.dropItem(item);
-        /*
-        int i = items.indexOf(item);
-        if (i == -1) {
-            System.out.println("You don't have the " + item);
-            return;
-        }
-        items.remove(i);
-        int w = (Integer) weights.remove(i);
-        totalWeight -= w;
-        */
+
     }
 
     /**
@@ -324,6 +266,6 @@ public class Game {
         }
     }
     private void printLocationInfo(){
-      System.out.println(currentRoom.getRoomDetailedDescription());
+      System.out.println(this.player.getCurrentRoom().getRoomDetailedDescription());
     }
 }

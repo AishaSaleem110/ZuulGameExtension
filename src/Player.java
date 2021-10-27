@@ -6,39 +6,90 @@ public class Player {
     private ArrayList weights;
     private int totalWeight;
     private final int MAX_WEIGHT = 10;
+    private Room currentRoom;
 
-    public Player() {
+    public Player(Room currentRoom) {
 
         this.items = new ArrayList();
         this.weights = new ArrayList();
         this.totalWeight = 0;
+        this.currentRoom=currentRoom;
     }
 
-    //should improve to send string from here instead of Game class
-    public boolean pickItem(String itemDescription,int itemWeight){
-        if (this.totalWeight + itemWeight >= this.MAX_WEIGHT) {
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
+    public void setCurrentRoom(Room currentRoom) {
+        this.currentRoom = currentRoom;
+    }
+
+
+    public String pickItem(String itemDescription){
+
+        int w = getCurrentRoom().containsItem(itemDescription);
+        if (w == 0) {
+            // The item is not in the room
+           return "No " + itemDescription + " in the room";
+        }
+
+        if (checkIfWeightAllowedToPlayer(w)) {
             // The player is carrying too much
-            return false;
+            return itemDescription +" is too heavy";
 
         }else
         {
             items.add(itemDescription);
-            weights.add(itemWeight);
-            totalWeight += itemWeight;
-            return true;
+            weights.add(w);
+            totalWeight += w;
+            currentRoom.removeItem(itemDescription);
+            return "Item has been picked up.";
         }
     }
 
-    public boolean dropItem(String item){
-
-        int i = items.indexOf(item);
-        if (i == -1) {
-            return false;
-
+    public String dropItem(String item){
+        int itemIndex=checkPlayerHasItem(item);
+        if(itemIndex==-1){
+            return "You don't have the " + item;
         }
-        items.remove(i);
-        int w = (Integer) weights.remove(i);
-        totalWeight -= w;
-        return true;
+
+        else {
+            items.remove(itemIndex);
+            int w = (Integer) weights.remove(itemIndex);
+            totalWeight -= w;
+            getCurrentRoom().addItem(item, w);
+            return "Item has been dropped.";
+        }
+
+    }
+
+    public String giveItem(String itemDescription,String character){
+
+        if (getCurrentRoom().getCharacter().equals(character)) {
+            // cannot give it if the chacter is not here
+            return character + " is not in the room";
+        }
+
+        int itemIndex=checkPlayerHasItem(itemDescription);
+        if(itemIndex==-1){
+            return "You don't have the " + itemDescription;
+        }
+        else{
+            items.remove(itemIndex);
+            int w = (Integer) weights.remove(itemIndex);
+            totalWeight -= w;
+
+            return "Item has been given to"+character;
+        }
+
+
+    }
+
+    private int checkPlayerHasItem(String item){
+        int i = this.items.indexOf(item);
+        return i;
+    }
+
+    private boolean checkIfWeightAllowedToPlayer(int newItemWeight){
+        return (this.totalWeight + newItemWeight >= this.MAX_WEIGHT);
     }
 }
