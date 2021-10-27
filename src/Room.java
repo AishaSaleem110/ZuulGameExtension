@@ -34,7 +34,7 @@ public class Room
      * @param description The room's description.
      */
     public Room(String description) 
-    {
+    {   this.character=null;
         this.description = description;
         this.exits=new HashMap<>();
         this.items =new ArrayList<>();
@@ -89,7 +89,7 @@ public class Room
      */
     public int containsItem(String description) {
 
-        Iterator iterator = this.items.iterator();
+        Iterator<Item> iterator = this.items.iterator();
         Item requiredItem=Item.findAnItem(iterator,description);
 
         if(requiredItem!=null){
@@ -105,7 +105,7 @@ public class Room
      * Remove an item from the Room
      */
     public String removeItem(String description) {
-        Iterator iterator = this.items.iterator();
+        Iterator<Item> iterator = this.items.iterator();
         Item requiredItem=Item.findAnItem(iterator,description);
 
         if(requiredItem!=null){
@@ -136,7 +136,7 @@ public class Room
     public String getRoomItemDetails(){
         StringBuilder roomItemDetails=new StringBuilder();
         if (this.items != null) {
-            Iterator iterator=this.items.iterator();
+            Iterator<Item> iterator=this.items.iterator();
             while (iterator.hasNext()){
                 Item item= (Item) iterator.next();
                 roomItemDetails.append(item.getItemsDetailString()).append("\n");

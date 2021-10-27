@@ -1,17 +1,16 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Player {
 
-    private ArrayList items;
-    private ArrayList weights;
+    private HashMap<String,Integer> items;
     private int totalWeight;
     private final int MAX_WEIGHT = 10;
     private Room currentRoom;
 
     public Player(Room currentRoom) {
 
-        this.items = new ArrayList();
-        this.weights = new ArrayList();
+        this.items = new HashMap<>();
         this.totalWeight = 0;
         this.currentRoom=currentRoom;
     }
@@ -38,8 +37,7 @@ public class Player {
 
         }else
         {
-            items.add(itemDescription);
-            weights.add(w);
+            items.put(itemDescription,w);
             totalWeight += w;
             currentRoom.removeItem(itemDescription);
             return "Item has been picked up.";
@@ -47,16 +45,15 @@ public class Player {
     }
 
     public String dropItem(String item){
-        int itemIndex=checkPlayerHasItem(item);
-        if(itemIndex==-1){
+        if(!checkPlayerHasItem(item)){
             return "You don't have the " + item;
         }
-
         else {
-            items.remove(itemIndex);
-            int w = (Integer) weights.remove(itemIndex);
-            totalWeight -= w;
-            getCurrentRoom().addItem(item, w);
+
+            totalWeight -= items.get(item);
+            getCurrentRoom().addItem(item, items.get(item));
+            items.remove(item);
+
             return "Item has been dropped.";
         }
 
@@ -64,29 +61,25 @@ public class Player {
 
     public String giveItem(String itemDescription,String character){
 
-        if (getCurrentRoom().getCharacter().equals(character)) {
-            // cannot give it if the chacter is not here
+        if ((getCurrentRoom().getCharacter()==null) || !(getCurrentRoom().getCharacter().equals(character))) {
             return character + " is not in the room";
         }
 
-        int itemIndex=checkPlayerHasItem(itemDescription);
-        if(itemIndex==-1){
+        if(!checkPlayerHasItem(itemDescription)){
+
             return "You don't have the " + itemDescription;
         }
         else{
-            items.remove(itemIndex);
-            int w = (Integer) weights.remove(itemIndex);
-            totalWeight -= w;
 
-            return "Item has been given to"+character;
+            totalWeight -= items.get(itemDescription);
+            items.remove(itemDescription);
+
+            return "Item has been given to "+character;
         }
-
-
     }
 
-    private int checkPlayerHasItem(String item){
-        int i = this.items.indexOf(item);
-        return i;
+    private boolean checkPlayerHasItem(String item){
+        return items.containsKey(item);
     }
 
     private boolean checkIfWeightAllowedToPlayer(int newItemWeight){
