@@ -21,20 +21,19 @@ public class Game {
 
     private Parser parser;
     private Room currentRoom;
-    private ArrayList items;
-    private ArrayList weights;
-    private int totalWeight;
-    private final int MAX_WEIGHT = 10;
+    private Player player;
+
 
     /**
      * Create the game and initialise its internal map.
      */
     public Game() {
         createRooms();
+        player=new Player();
         parser = new Parser();
-        items = new ArrayList();
+        /*items = new ArrayList();
         weights = new ArrayList();
-        totalWeight = 0;
+        totalWeight = 0;*/
     }
 
     /**
@@ -217,7 +216,20 @@ public class Game {
             System.out.println("No " + item + " in the room");
             return;
         }
-        if (totalWeight + w <= MAX_WEIGHT) {
+
+       if( player.pickItem(item,w)){
+           // OK we can pick it up
+           currentRoom.removeItem(item);
+       }else {
+           System.out.println(item + " is too heavy");
+       }
+
+       /*
+        System.out.println(item + " is too heavy");
+        else
+         // OK we can pick it up
+        currentRoom.removeItem(item);
+      if (totalWeight + w <= MAX_WEIGHT) {
             // The player is carrying too much
             System.out.println(item + " is too heavy");
             return;
@@ -227,6 +239,7 @@ public class Game {
         items.add(item);
         weights.add(w);
         totalWeight += w;
+        */
     }
 
     /**
@@ -240,6 +253,14 @@ public class Game {
         }
 
         String item = command.getSecondWord();
+        if (player.dropItem(item)) {
+           // currentRoom.addItem(item, w);
+            currentRoom.addItem(item, 5);
+        }else{
+            System.out.println("You don't have the " + item);
+        }
+
+        /*
         int i = items.indexOf(item);
         if (i == -1) {
             System.out.println("You don't have the " + item);
@@ -248,7 +269,7 @@ public class Game {
         items.remove(i);
         int w = (Integer) weights.remove(i);
         currentRoom.addItem(item, w);
-        totalWeight -= w;
+        totalWeight -= w;*/
     }
 
     /**
@@ -274,6 +295,9 @@ public class Game {
             System.out.println(whom + " is not in the room");
             return;
         }
+
+        player.dropItem(item);
+        /*
         int i = items.indexOf(item);
         if (i == -1) {
             System.out.println("You don't have the " + item);
@@ -282,6 +306,7 @@ public class Game {
         items.remove(i);
         int w = (Integer) weights.remove(i);
         totalWeight -= w;
+        */
     }
 
     /**
