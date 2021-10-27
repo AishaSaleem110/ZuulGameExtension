@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.HashMap;
+
 /**
  * This class is part of the "World of Zuul" application. 
  * "World of Zuul" is a very simple, text based adventure game.  
@@ -11,26 +14,40 @@
 
 public class CommandWords
 {
-    // a constant array that holds all valid command words
-    private static final String[] validCommands = {
-        "go", "quit", "help", "look", "take", "drop", "give"
-    };
 
-    /**
-     * Constructor - initialise the command words.
-     */
+    private HashMap<String,CommandWord> validCommands;
+
     public CommandWords()
     {
-        // nothing to do at the moment...
+        validCommands=new HashMap<>();
+        validCommands.put("go",CommandWord.GO);
+        validCommands.put("quit",CommandWord.QUIT);
+        validCommands.put("help",CommandWord.HELP);
+        validCommands.put("look",CommandWord.LOOK);
+        validCommands.put("take",CommandWord.TAKE);
+        validCommands.put("drop",CommandWord.DROP);
+        validCommands.put("give",CommandWord.GIVE);
+
     }
 
+
+    public CommandWord getCommandWord(String commandWord)
+    {
+        CommandWord command= validCommands.get(commandWord);
+        if(validCommands!=null){
+            return command;
+        }else{
+            return CommandWord.UNKNOWN;
+        }
+
+    }
 
     /**
      * This method prints list of all valid commands
      */
     public String printAllCommands(){
         StringBuilder commandListString=new StringBuilder();
-        for(String commands:validCommands){
+        for(String commands:validCommands.keySet()){
             commandListString.append(commands).append(" ");
         }
         return commandListString.toString();
@@ -42,11 +59,7 @@ public class CommandWords
      */
     public boolean isCommand(String aString)
     {
-        for(int i = 0; i < validCommands.length; i++) {
-            if(validCommands[i].equals(aString))
-                return true;
-        }
-        // if we get here, the string was not found in the commands
-        return false;
+        return  validCommands.containsKey(aString);
+
     }
 }

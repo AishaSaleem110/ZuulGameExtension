@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * interesting!
  *
  * To play this game, create an instance of this class and call the "play"
- * method.
+ * method.8j
  *
  * This main class creates and initialises all the others: it creates all rooms,
  * creates the parser and starts the game. It also evaluates and executes the
@@ -119,21 +119,41 @@ public class Game {
             return false;
         }
 
-        String commandWord = command.getCommandWord();
-        if (commandWord.equals("help")) {
-            printHelp();
-        } else if (commandWord.equals("go")) {
-            goRoom(command);
-        } else if (commandWord.equals("quit")) {
-            wantToQuit = quit(command);
-        } else if (commandWord.equals("look")) {
-            look();
-        } else if (commandWord.equals("take")) {
-            take(command);
-        } else if (commandWord.equals("drop")) {
-            drop(command);
-        } else if (commandWord.equals("give")) {
-            give(command);
+        CommandWord commandWord = command.getCommandWord();
+        switch(commandWord){
+            case UNKNOWN:{
+                System.out.println("I don't know what you mean...");
+                break;
+            }
+            case HELP:{
+                printHelp();
+                break;
+            }
+            case GO:{
+                goRoom(command);
+                break;
+            }
+            case QUIT:{
+                wantToQuit = quit(command);
+                break;
+            }
+            case LOOK:{
+                look();
+                break;
+            }
+            case TAKE:{
+                take(command);
+                break;
+            }
+            case DROP:{
+                drop(command);
+                break;
+            }
+            case GIVE:{
+                give(command);
+                break;
+            }
+
         }
         return wantToQuit;
     }
@@ -221,11 +241,8 @@ public class Game {
             System.out.println("Drop what?");
             return;
         }
-
         String item = command.getSecondWord();
         System.out.println(player.dropItem(item));
-
-
     }
 
     /**
