@@ -7,12 +7,14 @@ public class Player {
     private int totalWeight;
     private final int MAX_WEIGHT = 10;
     private Room currentRoom;
+    private int playerId;
 
-    public Player(Room currentRoom) {
+    public Player(Room currentRoom,int id) {
 
         this.items = new HashMap<>();
         this.totalWeight = 0;
         this.currentRoom = currentRoom;
+        this.playerId=id;
     }
 
     public Room getCurrentRoom() {
@@ -21,6 +23,15 @@ public class Player {
 
     public void setCurrentRoom(Room currentRoom) {
         this.currentRoom = currentRoom;
+    }
+
+
+    public int getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(int playerId) {
+        this.playerId = playerId;
     }
 
 
@@ -83,5 +94,16 @@ public class Player {
 
     private boolean checkIfWeightAllowedToPlayer(int newItemWeight) {
         return (this.totalWeight + newItemWeight >= this.MAX_WEIGHT);
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "playerId=" + playerId+
+                "items=" + items +
+                ", totalWeight=" + totalWeight +
+                ", MAX_WEIGHT=" + MAX_WEIGHT +
+                ", currentRoom=" + currentRoom +
+                '}';
     }
 }

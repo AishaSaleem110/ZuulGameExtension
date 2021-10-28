@@ -6,6 +6,7 @@ public enum CommandWord {
     TAKE("take"),
     DROP("drop"),
     GIVE("give"),
+    PLAYER("player"),
     UNKNOWN("?");
 
     private String commandValue;

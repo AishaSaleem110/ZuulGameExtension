@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is the main class of the "World of Zuul" application. "World of
@@ -20,7 +21,11 @@ import java.util.ArrayList;
 public class Game {
 
     private final Parser parser;
-    private final Player player;
+    private List<Player> players;
+
+    private static int currentPlayer;
+    private static int NUMBER_OF_PLAYERS=1;
+
 
 
     /**
@@ -28,8 +33,28 @@ public class Game {
      */
     public Game() {
         Room entryRoom = createRooms();
-        player = new Player(entryRoom);
+        players = new ArrayList<>();
+        createPlayers(NUMBER_OF_PLAYERS,entryRoom);
+        setCurrentPlayer(0);
         parser = new Parser();
+    }
+
+    private void createPlayers(int numberOfPlayers,Room entryRoom){
+        for(int i=0;i<numberOfPlayers;i++){
+            players.add(new Player(entryRoom,i));
+        }
+    }
+
+    public static void setNumberOfPlayers(int numberOfPlayers) {
+        NUMBER_OF_PLAYERS = numberOfPlayers;
+    }
+
+    public int getCurrentPlayer() {
+        return this.currentPlayer;
+    }
+
+    public void setCurrentPlayer(int currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 
     /**
@@ -153,12 +178,13 @@ public class Game {
                 give(command);
                 break;
             }
-
+            case PLAYER:{
+                changePlayer(command);
+                break;
+            }
         }
         return wantToQuit;
     }
-
-// implementations of user commands:
 
     /**
      * Print out some help information. Here we print some stupid, cryptic
@@ -193,13 +219,13 @@ public class Game {
         }
 
         // Try to leave current room.
-        Room nextRoom = this.player.getCurrentRoom().getExits(direction);
+        Room nextRoom = this.players.get(getCurrentPlayer()).getCurrentRoom().getExits(direction);
 
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
         } else {
-            this.player.setCurrentRoom(nextRoom);
+            this.players.get(getCurrentPlayer()).setCurrentRoom(nextRoom);
             printLocationInfo();
         }
     }
@@ -223,8 +249,7 @@ public class Game {
         }
 
         String item = command.getSecondWord();
-        System.out.println(player.pickItem(item));
-
+        System.out.println(this.players.get(getCurrentPlayer()).pickItem(item));
 
     }
 
@@ -238,7 +263,7 @@ public class Game {
             return;
         }
         String item = command.getSecondWord();
-        System.out.println(player.dropItem(item));
+        System.out.println(players.get(getCurrentPlayer()).dropItem(item));
     }
 
     /**
@@ -259,7 +284,7 @@ public class Game {
         String item = command.getSecondWord();
         String whom = command.getThirdWord();
 
-        System.out.println(this.player.giveItem(item, whom));
+        System.out.println(this.players.get(getCurrentPlayer()).giveItem(item, whom));
 
 
     }
@@ -279,7 +304,29 @@ public class Game {
         }
     }
 
+    private void changePlayer(Command command){
+        if (!command.hasSecondWord()) {
+            System.out.println("switch to?");
+            return;
+        }
+
+        int playerToSwitch=Integer.parseInt(command.getSecondWord());
+        if((playerToSwitch>=players.size())){
+            System.out.println("Player "+playerToSwitch+" is not in the game.");
+            return;
+        }
+        setCurrentPlayer(playerToSwitch);
+        printLocationInfo();
+         }
+
     private void printLocationInfo() {
-        System.out.println(this.player.getCurrentRoom().getRoomDetailedDescription());
+        System.out.println("Player" + getCurrentPlayer());
+        System.out.println(this.players.get(getCurrentPlayer()).getCurrentRoom().getRoomDetailedDescription());
+    }
+    private void printAllPlayers(){
+        for (Player player:this.players
+             ) {
+            System.out.print(player.toString());
+        }
     }
 }
