@@ -46,30 +46,30 @@ public class Game {
 
         // initialise room exits
 
-        outside.setExit(Direction.NORTH, null);
+        outside.setExit(Direction.NORTH, null); // Remove
         outside.setExit(Direction.EAST, theatre);
         outside.setExit(Direction.SOUTH, lab);
         outside.setExit(Direction.WEST, pub);
         outside.addItem("notebook", 2);
 
-        theatre.setExit(Direction.NORTH, null);
-        theatre.setExit(Direction.EAST, null);
-        theatre.setExit(Direction.SOUTH, null);
+        theatre.setExit(Direction.NORTH, null); // Remove
+        theatre.setExit(Direction.EAST, null); // Remove
+        theatre.setExit(Direction.SOUTH, null); // Remove
         theatre.setExit(Direction.WEST, outside);
 
-        pub.setExit(Direction.NORTH, null);
+        pub.setExit(Direction.NORTH, null); // Remove
         pub.setExit(Direction.EAST, outside);
-        pub.setExit(Direction.SOUTH, null);
-        pub.setExit(Direction.WEST, null);
+        pub.setExit(Direction.SOUTH, null); // Remove
+        pub.setExit(Direction.WEST, null); // Remove
 
         lab.setExit(Direction.NORTH, outside);
         lab.setExit(Direction.EAST, office);
-        lab.setExit(Direction.SOUTH, null);
-        lab.setExit(Direction.WEST, null);
+        lab.setExit(Direction.SOUTH, null); // Remove
+        lab.setExit(Direction.WEST, null); // Remove
 
-        office.setExit(Direction.NORTH, null);
-        office.setExit(Direction.EAST, null);
-        office.setExit(Direction.SOUTH, null);
+        office.setExit(Direction.NORTH, null); // Remove
+        office.setExit(Direction.EAST, null); // Remove
+        office.setExit(Direction.SOUTH, null); // Remove
         office.setExit(Direction.WEST, lab);
 
         //currentRoom = outside;  // start game outside
@@ -193,26 +193,8 @@ public class Game {
         }
 
         // Try to leave current room.
-        Room nextRoom = null;
+        Room nextRoom = this.player.getCurrentRoom().getExits(direction);
 
-        switch (direction) {
-            case NORTH: {
-                nextRoom = this.player.getCurrentRoom().getExits(Direction.NORTH);
-                break;
-            }
-            case EAST: {
-                nextRoom = this.player.getCurrentRoom().getExits(Direction.EAST);
-                break;
-            }
-            case SOUTH: {
-                nextRoom = this.player.getCurrentRoom().getExits(Direction.SOUTH);
-                break;
-            }
-            case WEST: {
-                nextRoom = this.player.getCurrentRoom().getExits(Direction.WEST);
-                break;
-            }
-        }
 
         if (nextRoom == null) {
             System.out.println("There is no door!");

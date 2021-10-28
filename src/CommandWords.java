@@ -43,6 +43,7 @@ public class CommandWords
     /**
      * This method prints list of all valid commands
      */
+    // static method
     public String printAllCommands(){
         StringBuilder commandListString=new StringBuilder();
         for(String commands:validCommands.keySet()){
