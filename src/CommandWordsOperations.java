@@ -12,12 +12,12 @@ import java.util.HashMap;
  * @version 2006.03.30
  */
 
-public class CommandWords
+public class CommandWordsOperations
 {
 
     private HashMap<String,CommandWord> validCommands;
 
-    public CommandWords()
+    public CommandWordsOperations()
     {
         validCommands=new HashMap<>();
         for(CommandWord commandWord:CommandWord.values()){

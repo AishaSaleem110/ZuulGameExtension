@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.StringTokenizer;
 
 /**
  * This class is part of the "World of Zuul" application. 
@@ -19,7 +18,7 @@ import java.util.StringTokenizer;
  */
 public class Parser 
 {
-    private CommandWords commands;  // holds all valid command words
+    private CommandWordsOperations commands;  // holds all valid command words
     private Scanner reader;         // source of command input
 
     /**
@@ -27,7 +26,7 @@ public class Parser
      */
     public Parser() 
     {
-        commands = new CommandWords();
+        commands = new CommandWordsOperations();
         reader = new Scanner(System.in);
     }
 
