@@ -46,31 +46,31 @@ public class Game {
 
         // initialise room exits
 
-        outside.setExit("north",null);
-        outside.setExit("east",theatre);
-        outside.setExit("south",lab);
-        outside.setExit("west",pub);
+        outside.setExit(Direction.NORTH,null);
+        outside.setExit(Direction.EAST,theatre);
+        outside.setExit(Direction.SOUTH,lab);
+        outside.setExit(Direction.WEST,pub);
         outside.addItem("notebook", 2);
 
-        theatre.setExit("north",null);
-        theatre.setExit("east",null);
-        theatre.setExit("south",null);
-        theatre.setExit("west",outside);
+        theatre.setExit(Direction.NORTH,null);
+        theatre.setExit(Direction.EAST,null);
+        theatre.setExit(Direction.SOUTH,null);
+        theatre.setExit(Direction.WEST,outside);
 
-        pub.setExit("north",null);
-        pub.setExit("east",outside);
-        pub.setExit("south",null);
-        pub.setExit("west",null);
+        pub.setExit(Direction.NORTH,null);
+        pub.setExit(Direction.EAST,outside);
+        pub.setExit(Direction.SOUTH,null);
+        pub.setExit(Direction.WEST,null);
 
-        lab.setExit("north",outside);
-        lab.setExit("east",office);
-        lab.setExit("south",null);
-        lab.setExit("west",null);
+        lab.setExit(Direction.NORTH,outside);
+        lab.setExit(Direction.EAST,office);
+        lab.setExit(Direction.SOUTH,null);
+        lab.setExit(Direction.WEST,null);
 
-        office.setExit("north",null);
-        office.setExit("east",null);
-        office.setExit("south",null);
-        office.setExit("west",lab);
+        office.setExit(Direction.NORTH,null);
+        office.setExit(Direction.EAST,null);
+        office.setExit(Direction.SOUTH,null);
+        office.setExit(Direction.WEST,lab);
 
         //currentRoom = outside;  // start game outside
         return outside;
@@ -183,21 +183,34 @@ public class Game {
             return;
         }
 
-        String direction = command.getSecondWord();
+        String directionString = command.getSecondWord();
+
+        Direction direction=Direction.getDirectionEnum(directionString);
+        if(direction==Direction.UNKNOWN){
+            System.out.println("That is not a direction...");
+            return;
+        }
 
         // Try to leave current room.
         Room nextRoom = null;
-        if (direction.equals("north")) {
-            nextRoom = this.player.getCurrentRoom().getExits("north");
-        }
-        if (direction.equals("east")) {
-            nextRoom = this.player.getCurrentRoom().getExits("east");
-        }
-        if (direction.equals("south")) {
-            nextRoom = this.player.getCurrentRoom().getExits("south");
-        }
-        if (direction.equals("west")) {
-            nextRoom = this.player.getCurrentRoom().getExits("west");
+
+        switch (direction){
+            case NORTH:{
+                nextRoom = this.player.getCurrentRoom().getExits(Direction.NORTH);
+                break;
+            }
+            case EAST:{
+                nextRoom = this.player.getCurrentRoom().getExits(Direction.EAST);
+                break;
+            }
+            case SOUTH:{
+                nextRoom = this.player.getCurrentRoom().getExits(Direction.SOUTH);
+                break;
+            }
+            case WEST:{
+                nextRoom = this.player.getCurrentRoom().getExits(Direction.WEST);
+                break;
+            }
         }
 
         if (nextRoom == null) {

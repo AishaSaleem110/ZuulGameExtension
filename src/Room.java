@@ -20,7 +20,7 @@ import java.util.Set;
 public class Room 
 {
     public String description;
-    private HashMap<String,Room> exits;
+    private HashMap<Direction,Room> exits;
 
     // Characters in the room
     private String character;
@@ -46,7 +46,7 @@ public class Room
      * @param direction specifies the direction .
      * @param neighbor specifies the neighboring room
      **/
-    public void setExit(String direction,Room neighbor)
+    public void setExit(Direction direction,Room neighbor)
     {
        exits.put(direction,neighbor);
     }
@@ -59,7 +59,7 @@ public class Room
         this.character = character;
     }
 
-    public Room getExits(String direction){
+    public Room getExits(Direction direction){
        return exits.get(direction);
     }
 
@@ -125,9 +125,9 @@ public class Room
      */
     public String getRoomExitDetails(){
         StringBuilder roomDetails=new StringBuilder("Exits: ");
-        Set<String> roomExitDirections=exits.keySet();
-        for(String roomExits:roomExitDirections){
-            roomDetails.append(roomExits).append(" ");
+        Set<Direction> roomExitDirections=exits.keySet();
+        for(Direction roomExits:roomExitDirections){
+            roomDetails.append(roomExits.toString()).append(" ");
         }
         return roomDetails.toString();
     }
