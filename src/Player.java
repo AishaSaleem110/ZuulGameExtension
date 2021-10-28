@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 public class Player {
 
-    private HashMap<String,Integer> items;
+    private HashMap<String, Integer> items;
     private int totalWeight;
     private final int MAX_WEIGHT = 10;
     private Room currentRoom;
@@ -12,40 +12,40 @@ public class Player {
 
         this.items = new HashMap<>();
         this.totalWeight = 0;
-        this.currentRoom=currentRoom;
+        this.currentRoom = currentRoom;
     }
 
     public Room getCurrentRoom() {
         return currentRoom;
     }
+
     public void setCurrentRoom(Room currentRoom) {
         this.currentRoom = currentRoom;
     }
 
 
-    public String pickItem(String itemDescription){
+    public String pickItem(String itemDescription) {
 
         int w = getCurrentRoom().containsItem(itemDescription);
         if (w == 0) {
             // The item is not in the room
-           return "No " + itemDescription + " in the room";
+            return "No " + itemDescription + " in the room";
         }
 
         if (checkIfWeightAllowedToPlayer(w)) {
             // The player is carrying too much
-            return itemDescription +" is too heavy";
+            return itemDescription + " is too heavy";
 
-        }else
-        {
-            items.put(itemDescription,w);
+        } else {
+            items.put(itemDescription, w);
             totalWeight += w;
             currentRoom.removeItem(itemDescription);
             return "Item has been picked up.";
         }
     }
 
-    public String dropItem(String item){
-        if(!checkPlayerHasItem(item)){
+    public String dropItem(String item) {
+        if (!checkPlayerHasItem(item)) {
             return "You don't have the " + item;
         }
         else {
@@ -59,30 +59,29 @@ public class Player {
 
     }
 
-    public String giveItem(String itemDescription,String character){
+    public String giveItem(String itemDescription, String character) {
 
-        if ((getCurrentRoom().getCharacter()==null) || !(getCurrentRoom().getCharacter().equals(character))) {
+        if ((getCurrentRoom().getCharacter() == null) || !(getCurrentRoom().getCharacter().equals(character))) {
             return character + " is not in the room";
         }
 
-        if(!checkPlayerHasItem(itemDescription)){
+        if (!checkPlayerHasItem(itemDescription)) {
 
             return "You don't have the " + itemDescription;
-        }
-        else{
+        } else {
 
             totalWeight -= items.get(itemDescription);
             items.remove(itemDescription);
 
-            return "Item has been given to "+character;
+            return "Item has been given to " + character;
         }
     }
 
-    private boolean checkPlayerHasItem(String item){
+    private boolean checkPlayerHasItem(String item) {
         return items.containsKey(item);
     }
 
-    private boolean checkIfWeightAllowedToPlayer(int newItemWeight){
+    private boolean checkIfWeightAllowedToPlayer(int newItemWeight) {
         return (this.totalWeight + newItemWeight >= this.MAX_WEIGHT);
     }
 }

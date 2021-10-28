@@ -6,10 +6,10 @@ import java.util.ArrayList;
  * Zuul" is a very simple, text based adventure game. Users can walk around some
  * scenery. That's all. It should really be extended to make it more
  * interesting!
- *
+ * <p>
  * To play this game, create an instance of this class and call the "play"
  * method.8j
- *
+ * <p>
  * This main class creates and initialises all the others: it creates all rooms,
  * creates the parser and starts the game. It also evaluates and executes the
  * commands that the parser returns.
@@ -19,16 +19,16 @@ import java.util.ArrayList;
  */
 public class Game {
 
-    private Parser parser;
-    private Player player;
+    private final Parser parser;
+    private final Player player;
 
 
     /**
      * Create the game and initialise its internal map.
      */
     public Game() {
-        Room entryRoom=createRooms();
-        player=new Player(entryRoom);
+        Room entryRoom = createRooms();
+        player = new Player(entryRoom);
         parser = new Parser();
     }
 
@@ -46,31 +46,31 @@ public class Game {
 
         // initialise room exits
 
-        outside.setExit(Direction.NORTH,null);
-        outside.setExit(Direction.EAST,theatre);
-        outside.setExit(Direction.SOUTH,lab);
-        outside.setExit(Direction.WEST,pub);
+        outside.setExit(Direction.NORTH, null);
+        outside.setExit(Direction.EAST, theatre);
+        outside.setExit(Direction.SOUTH, lab);
+        outside.setExit(Direction.WEST, pub);
         outside.addItem("notebook", 2);
 
-        theatre.setExit(Direction.NORTH,null);
-        theatre.setExit(Direction.EAST,null);
-        theatre.setExit(Direction.SOUTH,null);
-        theatre.setExit(Direction.WEST,outside);
+        theatre.setExit(Direction.NORTH, null);
+        theatre.setExit(Direction.EAST, null);
+        theatre.setExit(Direction.SOUTH, null);
+        theatre.setExit(Direction.WEST, outside);
 
-        pub.setExit(Direction.NORTH,null);
-        pub.setExit(Direction.EAST,outside);
-        pub.setExit(Direction.SOUTH,null);
-        pub.setExit(Direction.WEST,null);
+        pub.setExit(Direction.NORTH, null);
+        pub.setExit(Direction.EAST, outside);
+        pub.setExit(Direction.SOUTH, null);
+        pub.setExit(Direction.WEST, null);
 
-        lab.setExit(Direction.NORTH,outside);
-        lab.setExit(Direction.EAST,office);
-        lab.setExit(Direction.SOUTH,null);
-        lab.setExit(Direction.WEST,null);
+        lab.setExit(Direction.NORTH, outside);
+        lab.setExit(Direction.EAST, office);
+        lab.setExit(Direction.SOUTH, null);
+        lab.setExit(Direction.WEST, null);
 
-        office.setExit(Direction.NORTH,null);
-        office.setExit(Direction.EAST,null);
-        office.setExit(Direction.SOUTH,null);
-        office.setExit(Direction.WEST,lab);
+        office.setExit(Direction.NORTH, null);
+        office.setExit(Direction.EAST, null);
+        office.setExit(Direction.SOUTH, null);
+        office.setExit(Direction.WEST, lab);
 
         //currentRoom = outside;  // start game outside
         return outside;
@@ -120,36 +120,36 @@ public class Game {
         }
 
         CommandWord commandWord = command.getCommandWord();
-        switch(commandWord){
-            case UNKNOWN:{
+        switch (commandWord) {
+            case UNKNOWN: {
                 System.out.println("I don't know what you mean...");
                 break;
             }
-            case HELP:{
+            case HELP: {
                 printHelp();
                 break;
             }
-            case GO:{
+            case GO: {
                 goRoom(command);
                 break;
             }
-            case QUIT:{
+            case QUIT: {
                 wantToQuit = quit(command);
                 break;
             }
-            case LOOK:{
+            case LOOK: {
                 look();
                 break;
             }
-            case TAKE:{
+            case TAKE: {
                 take(command);
                 break;
             }
-            case DROP:{
+            case DROP: {
                 drop(command);
                 break;
             }
-            case GIVE:{
+            case GIVE: {
                 give(command);
                 break;
             }
@@ -159,6 +159,7 @@ public class Game {
     }
 
 // implementations of user commands:
+
     /**
      * Print out some help information. Here we print some stupid, cryptic
      * message and a list of the command words.
@@ -185,8 +186,8 @@ public class Game {
 
         String directionString = command.getSecondWord();
 
-        Direction direction=Direction.getDirectionEnum(directionString);
-        if(direction==Direction.UNKNOWN){
+        Direction direction = Direction.getDirectionEnum(directionString);
+        if (direction == Direction.UNKNOWN) {
             System.out.println("That is not a direction...");
             return;
         }
@@ -194,20 +195,20 @@ public class Game {
         // Try to leave current room.
         Room nextRoom = null;
 
-        switch (direction){
-            case NORTH:{
+        switch (direction) {
+            case NORTH: {
                 nextRoom = this.player.getCurrentRoom().getExits(Direction.NORTH);
                 break;
             }
-            case EAST:{
+            case EAST: {
                 nextRoom = this.player.getCurrentRoom().getExits(Direction.EAST);
                 break;
             }
-            case SOUTH:{
+            case SOUTH: {
                 nextRoom = this.player.getCurrentRoom().getExits(Direction.SOUTH);
                 break;
             }
-            case WEST:{
+            case WEST: {
                 nextRoom = this.player.getCurrentRoom().getExits(Direction.WEST);
                 break;
             }
@@ -217,7 +218,7 @@ public class Game {
             System.out.println("There is no door!");
         } else {
             this.player.setCurrentRoom(nextRoom);
-           printLocationInfo();
+            printLocationInfo();
         }
     }
 
@@ -276,7 +277,7 @@ public class Game {
         String item = command.getSecondWord();
         String whom = command.getThirdWord();
 
-        System.out.println(this.player.giveItem(item,whom));
+        System.out.println(this.player.giveItem(item, whom));
 
 
     }
@@ -295,7 +296,8 @@ public class Game {
             return true;  // signal that we want to quit
         }
     }
-    private void printLocationInfo(){
-      System.out.println(this.player.getCurrentRoom().getRoomDetailedDescription());
+
+    private void printLocationInfo() {
+        System.out.println(this.player.getCurrentRoom().getRoomDetailedDescription());
     }
 }

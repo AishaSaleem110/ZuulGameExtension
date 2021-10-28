@@ -16,12 +16,6 @@ public enum Direction {
 
     }
 
-    @Override
-    public String toString() {
-        return directionString;
-    }
-
-
     public static Direction getDirectionEnum(String directionString) {
         for (Direction direction : Direction.values()) {
             if (direction.toString().equals(directionString)) {
@@ -29,6 +23,11 @@ public enum Direction {
             }
         }
         return Direction.UNKNOWN;
+    }
+
+    @Override
+    public String toString() {
+        return directionString;
     }
 
 }
