@@ -23,7 +23,7 @@ public class Game {
     private final Parser parser;
     private List<Player> players;
 
-    private static int currentPlayer;
+    private static Player currentPlayer;
     private static int NUMBER_OF_PLAYERS=1;
 
 
@@ -35,7 +35,7 @@ public class Game {
         Room entryRoom = createRooms();
         players = new ArrayList<>();
         createPlayers(NUMBER_OF_PLAYERS,entryRoom);
-        setCurrentPlayer(0);
+        setCurrentPlayer(players.get(0));
         parser = new Parser();
     }
 
@@ -49,11 +49,11 @@ public class Game {
         NUMBER_OF_PLAYERS = numberOfPlayers;
     }
 
-    public int getCurrentPlayer() {
+    public Player getCurrentPlayer() {
         return this.currentPlayer;
     }
 
-    public void setCurrentPlayer(int currentPlayer) {
+    public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
 
@@ -71,33 +71,21 @@ public class Game {
 
         // initialise room exits
 
-        outside.setExit(Direction.NORTH, null); // Remove
         outside.setExit(Direction.EAST, theatre);
         outside.setExit(Direction.SOUTH, lab);
         outside.setExit(Direction.WEST, pub);
         outside.addItem("notebook", 2);
 
-        theatre.setExit(Direction.NORTH, null); // Remove
-        theatre.setExit(Direction.EAST, null); // Remove
-        theatre.setExit(Direction.SOUTH, null); // Remove
         theatre.setExit(Direction.WEST, outside);
 
-        pub.setExit(Direction.NORTH, null); // Remove
         pub.setExit(Direction.EAST, outside);
-        pub.setExit(Direction.SOUTH, null); // Remove
-        pub.setExit(Direction.WEST, null); // Remove
 
         lab.setExit(Direction.NORTH, outside);
         lab.setExit(Direction.EAST, office);
-        lab.setExit(Direction.SOUTH, null); // Remove
-        lab.setExit(Direction.WEST, null); // Remove
 
-        office.setExit(Direction.NORTH, null); // Remove
-        office.setExit(Direction.EAST, null); // Remove
-        office.setExit(Direction.SOUTH, null); // Remove
         office.setExit(Direction.WEST, lab);
 
-        //currentRoom = outside;  // start game outside
+
         return outside;
     }
 
@@ -219,13 +207,13 @@ public class Game {
         }
 
         // Try to leave current room.
-        Room nextRoom = this.players.get(getCurrentPlayer()).getCurrentRoom().getExits(direction);
+        Room nextRoom = this.getCurrentPlayer().getCurrentRoom().getExits(direction);
 
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
         } else {
-            this.players.get(getCurrentPlayer()).setCurrentRoom(nextRoom);
+            this.getCurrentPlayer().setCurrentRoom(nextRoom);
             printLocationInfo();
         }
     }
@@ -249,7 +237,7 @@ public class Game {
         }
 
         String item = command.getSecondWord();
-        System.out.println(this.players.get(getCurrentPlayer()).pickItem(item));
+        System.out.println(this.getCurrentPlayer().pickItem(item));
 
     }
 
@@ -263,7 +251,7 @@ public class Game {
             return;
         }
         String item = command.getSecondWord();
-        System.out.println(players.get(getCurrentPlayer()).dropItem(item));
+        System.out.println(this.getCurrentPlayer().dropItem(item));
     }
 
     /**
@@ -284,7 +272,7 @@ public class Game {
         String item = command.getSecondWord();
         String whom = command.getThirdWord();
 
-        System.out.println(this.players.get(getCurrentPlayer()).giveItem(item, whom));
+        System.out.println(this.getCurrentPlayer().giveItem(item, whom));
 
 
     }
@@ -315,13 +303,13 @@ public class Game {
             System.out.println("Player "+playerToSwitch+" is not in the game.");
             return;
         }
-        setCurrentPlayer(playerToSwitch);
+        setCurrentPlayer(this.players.get(playerToSwitch));
         printLocationInfo();
          }
 
     private void printLocationInfo() {
-        System.out.println("Player" + getCurrentPlayer());
-        System.out.println(this.players.get(getCurrentPlayer()).getCurrentRoom().getRoomDetailedDescription());
+        System.out.println("Player" + getCurrentPlayer().getPlayerId());
+        System.out.println(this.getCurrentPlayer().getCurrentRoom().getRoomDetailedDescription());
     }
     private void printAllPlayers(){
         for (Player player:this.players

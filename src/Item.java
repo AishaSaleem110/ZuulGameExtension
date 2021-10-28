@@ -79,7 +79,7 @@ public class Item {
      * @param itemDescription to find an item with this description
      * @return instance of an item if a match is found in the collection with the required description or null in case no item found
      */
-    public static Item findAnItem(Iterator iterator,String itemDescription) {
+/*    public Item findAnItem(String itemDescription) {
         while (iterator.hasNext()) {
             Item item = (Item) iterator.next();
             if (item.itemDescription.equals(itemDescription)) {
@@ -88,6 +88,6 @@ public class Item {
         }
         //in case no item with the required description is found
         return null;
-    }
+    }*/
 
 }

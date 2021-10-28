@@ -89,16 +89,12 @@ public class Room {
      */
     public int containsItem(String description) {
 
-        Iterator<Item> iterator = this.items.iterator();
-        Item requiredItem = Item.findAnItem(iterator, description);
-
-        if (requiredItem != null) {
-            return requiredItem.getItemWeight();
-        } else {
-            /* if no item with the given description is found */
-            return 0;
+        for(Item item: this.items){
+            if(item.getItemDescription().equals(description)){
+                return item.getItemWeight();
+            }
         }
-
+        return 0;
     }
 
     /**
@@ -106,16 +102,13 @@ public class Room {
      */
     public String removeItem(String description) {
         Iterator<Item> iterator = this.items.iterator();
-        Item requiredItem = Item.findAnItem(iterator, description);
-
-        if (requiredItem != null) {
-            this.items.remove(requiredItem);
-            return requiredItem.getItemDescription();
-        } else {
-            /* if no item with the given description is found */
-            return "This room does not contain" + description;
+        while(iterator.hasNext()){
+            if(iterator.next().getItemDescription().equals(description)){
+                iterator.remove();
+                return description;
+            }
         }
-
+        return "This room does not contain" + description;
     }
 
 
@@ -136,15 +129,10 @@ public class Room {
      **/
     public String getRoomItemDetails() {
         StringBuilder roomItemDetails = new StringBuilder();
-        if (this.items != null) {
-            Iterator<Item> iterator = this.items.iterator();
-            while (iterator.hasNext()) {
-                Item item = (Item) iterator.next();
-                roomItemDetails.append(item.getItemsDetailString()).append("\n");
-            }
-
+        for(Item item : this.items){
+            roomItemDetails.append(item.getItemsDetailString()).append("\n");
         }
-        /*for(Item item : this.items)*/
+
         return roomItemDetails.toString();
     }
 
@@ -154,7 +142,8 @@ public class Room {
     public String getRoomDetailedDescription() {
         StringBuilder detailedDescription = new StringBuilder();
 
-        detailedDescription.append("You are ").append(getDescription()).append("\n")
+        detailedDescription.append("You are ")
+                .append(getDescription()).append("\n")
                 .append(getRoomExitDetails()).append("\n")
                 .append("Items: ").append(getRoomItemDetails()).append("\n");
 
