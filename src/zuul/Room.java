@@ -80,7 +80,7 @@ public class Room {
     }
 
     /**
-     * Add an item to the zuul.Room
+     * Add an item to the Room
      *
      * @param description The description of the item
      * @param weight      The item's weight
@@ -107,7 +107,7 @@ public class Room {
     }
 
     /**
-     * Remove an item from the zuul.Room
+     * Remove an item from the Room
      */
     public String removeItem(String description) {
         Iterator<Item> iterator = this.items.iterator();
@@ -139,7 +139,7 @@ public class Room {
     public String getRoomItemDetails() {
         StringBuilder roomItemDetails = new StringBuilder();
         for(Item item : this.items){
-            roomItemDetails.append(item.toString());
+            roomItemDetails.append(item.toString()).append(" ");
         }
 
         return roomItemDetails.toString();
@@ -147,7 +147,7 @@ public class Room {
     public String getRoomCharacterDetails(){
         StringBuilder roomCharacterDetails = new StringBuilder();
         for(Character character : this.characters){
-            roomCharacterDetails.append(character.toString()).append(System.lineSeparator());
+            roomCharacterDetails.append(character.toString()).append(" ");
         }
 
         return roomCharacterDetails.toString();
@@ -161,7 +161,7 @@ public class Room {
                 .append(getDescription()).append(System.lineSeparator())
                 .append(getRoomExitDetails()).append(System.lineSeparator())
                 .append("Items: ").append(getRoomItemDetails()).append(System.lineSeparator())
-                .append("Characters:").append(getRoomCharacterDetails());
+                .append("Characters: ").append(getRoomCharacterDetails());
 
 
         return detailedDescription.toString();

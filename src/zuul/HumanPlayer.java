@@ -16,7 +16,8 @@ public class HumanPlayer extends Player{
         this.currentRoom = currentRoom;
     }
 
-    private boolean checkPlayerHasItem(String item) {
+    private boolean checkPlayerHasItem(String item)
+    {
         return items.containsKey(item);
     }
 
@@ -26,7 +27,7 @@ public class HumanPlayer extends Player{
 
     @Override
     public String toString() {
-        return "zuul.Player: " +
+        return "Player: " +
                 "playerId=" + playerId+
                 "items=" + items +
                 ", totalWeight=" + totalWeight +
@@ -36,13 +37,24 @@ public class HumanPlayer extends Player{
 
 
     @Override
-    public String move(Direction direction) {
-        return null;
+    public String move(Direction direction)
+    {
+        // Try to leave current room.
+        Room nextRoom = getCurrentRoom().getExits(direction);
+
+
+        if (nextRoom == null) {
+            return "There is no door!";
+        } else {
+            setCurrentRoom(nextRoom);
+            return this.toString();
+        }
     }
 
     @Override
-    public String look() {
-        return null;
+    public String look()
+    {
+        return this.toString();
     }
 
     @Override
@@ -61,7 +73,7 @@ public class HumanPlayer extends Player{
             items.put(itemDesc, w);
             totalWeight += w;
             currentRoom.removeItem(itemDesc);
-            return "zuul.Item has been picked up.";
+            return "Item has been picked up.";
         }
     }
 
@@ -76,7 +88,7 @@ public class HumanPlayer extends Player{
             getCurrentRoom().addItem(itemDesc, items.get(itemDesc));
             items.remove(itemDesc);
 
-            return "zuul.Item has been dropped.";
+            return "Item has been dropped.";
         }
     }
 
@@ -90,11 +102,13 @@ public class HumanPlayer extends Player{
 
             return "You don't have the " + itemDesc;
         } else {
-
-            totalWeight -= items.get(itemDesc);
+            int w=this.items.get(itemDesc);
+            totalWeight -= w;
+            getCurrentRoom().getCharacter(whom).addItem(new Item(itemDesc,w));
             items.remove(itemDesc);
 
-            return "zuul.Item has been given to " + whom;
+            return "Item has been given to " + whom;
         }
     }
+
 }

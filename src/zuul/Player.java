@@ -28,12 +28,23 @@ public abstract class Player {
         this.currentRoom = currentRoom;
     }
 
+    @Override
+    public String toString() {
+
+        StringBuilder locationString=new StringBuilder();
+        return locationString.append("Player")
+                .append(getPlayerId())
+                .append(System.lineSeparator())
+                .append(getCurrentRoom().toString()).toString();
+    }
 
     abstract String move(Direction direction);
     abstract String look();
     abstract String take(String itemDesc);
     abstract String drop(String itemDesc);
     abstract String give(String itemDesc, String whom);
+
+
 
 
 }

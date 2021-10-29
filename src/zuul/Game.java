@@ -76,7 +76,9 @@ public class Game {
         outside.setExit(Direction.SOUTH, lab);
         outside.setExit(Direction.WEST, pub);
         outside.addItem("notebook", 2);
+        outside.addItem("ball", 2);
         outside.setCharacter(new Character("SecurityGuard",null));
+        outside.setCharacter(new Character("Dog",null));
 
         theatre.setExit(Direction.WEST, outside);
         theatre.setCharacter(new Character("Usher",null));
@@ -93,7 +95,7 @@ public class Game {
     }
 
     /**
-     * zuul.Main play routine. Loops until end of play.
+     * Main play routine. Loops until end of play.
      */
     public void play() {
         printWelcome();
@@ -118,7 +120,7 @@ public class Game {
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
         System.out.println("Type 'help' if you need help.");
         System.out.println();
-        printLocationInfo();
+        System.out.println(getCurrentPlayer().toString());
     }
 
     /**
@@ -208,24 +210,15 @@ public class Game {
             System.out.println("That is not a direction...");
             return;
         }
+        System.out.println(this.getCurrentPlayer().move(direction));
 
-        // Try to leave current room.
-        Room nextRoom = this.getCurrentPlayer().getCurrentRoom().getExits(direction);
-
-
-        if (nextRoom == null) {
-            System.out.println("There is no door!");
-        } else {
-            this.getCurrentPlayer().setCurrentRoom(nextRoom);
-            printLocationInfo();
-        }
     }
 
     /**
      * "Look" was entered. Report what the player can see in the room
      */
     private void look() {
-        printLocationInfo();
+        System.out.println(getCurrentPlayer().look());
     }
 
     /**
@@ -303,21 +296,11 @@ public class Game {
 
         int playerToSwitch=Integer.parseInt(command.getSecondWord());
         if((playerToSwitch>=players.size())){
-            System.out.println("zuul.Player "+playerToSwitch+" is not in the game.");
+            System.out.println("Player " + playerToSwitch + " is not in the game.");
             return;
         }
         setCurrentPlayer((HumanPlayer) this.players.get(playerToSwitch));
-        printLocationInfo();
+        System.out.println(getCurrentPlayer().toString());
          }
 
-    private void printLocationInfo() {
-        System.out.println("zuul.Player" + getCurrentPlayer().getPlayerId());
-        System.out.println(this.getCurrentPlayer().getCurrentRoom().toString());
-    }
-    private void printAllPlayers(){
-        for (Player player:this.players
-             ) {
-            System.out.print(player.toString());
-        }
-    }
 }
