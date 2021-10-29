@@ -35,13 +35,13 @@ public class Game {
         Room entryRoom = createRooms();
         players = new ArrayList<>();
         createPlayers(NUMBER_OF_PLAYERS,entryRoom);
-        setCurrentPlayer(players.get(0));
+        setCurrentPlayer((HumanPlayer) players.get(0));
         parser = new Parser();
     }
 
     private void createPlayers(int numberOfPlayers,Room entryRoom){
         for(int i=0;i<numberOfPlayers;i++){
-            players.add(new Player(entryRoom,i));
+            players.add(new HumanPlayer(entryRoom,i));
         }
     }
 
@@ -53,7 +53,7 @@ public class Game {
         return this.currentPlayer;
     }
 
-    public void setCurrentPlayer(Player currentPlayer) {
+    public void setCurrentPlayer(HumanPlayer currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
 
@@ -237,7 +237,7 @@ public class Game {
         }
 
         String item = command.getSecondWord();
-        System.out.println(this.getCurrentPlayer().pickItem(item));
+        System.out.println(this.getCurrentPlayer().take(item));
 
     }
 
@@ -251,7 +251,7 @@ public class Game {
             return;
         }
         String item = command.getSecondWord();
-        System.out.println(this.getCurrentPlayer().dropItem(item));
+        System.out.println(this.getCurrentPlayer().drop(item));
     }
 
     /**
@@ -272,7 +272,7 @@ public class Game {
         String item = command.getSecondWord();
         String whom = command.getThirdWord();
 
-        System.out.println(this.getCurrentPlayer().giveItem(item, whom));
+        System.out.println(this.getCurrentPlayer().give(item, whom));
 
 
     }
@@ -303,7 +303,7 @@ public class Game {
             System.out.println("Player "+playerToSwitch+" is not in the game.");
             return;
         }
-        setCurrentPlayer(this.players.get(playerToSwitch));
+        setCurrentPlayer((HumanPlayer) this.players.get(playerToSwitch));
         printLocationInfo();
          }
 
