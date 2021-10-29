@@ -24,7 +24,7 @@ public class Game {
     private List<Player> players;
 
     private static Player currentPlayer;
-    private static int NUMBER_OF_PLAYERS=1;
+    private static int numberOfPlayers =1;
 
 
 
@@ -34,7 +34,7 @@ public class Game {
     public Game() {
         Room entryRoom = createRooms();
         players = new ArrayList<>();
-        createPlayers(NUMBER_OF_PLAYERS,entryRoom);
+        createPlayers(numberOfPlayers,entryRoom);
         setCurrentPlayer((HumanPlayer) players.get(0));
         parser = new Parser();
     }
@@ -46,7 +46,7 @@ public class Game {
     }
 
     public static void setNumberOfPlayers(int numberOfPlayers) {
-        NUMBER_OF_PLAYERS = numberOfPlayers;
+        Game.numberOfPlayers = numberOfPlayers;
     }
 
     public Player getCurrentPlayer() {
