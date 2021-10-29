@@ -21,20 +21,9 @@ public class HumanPlayer extends Player{
         return items.containsKey(item);
     }
 
-    private boolean checkIfWeightAllowedToPlayer(int newItemWeight) {
+    private boolean checkAllowedWeight(int newItemWeight) {
         return (this.totalWeight + newItemWeight >= this.MAX_WEIGHT);
     }
-
-    @Override
-    public String toString() {
-        return "Player: " +
-                "playerId=" + playerId+
-                "items=" + items +
-                ", totalWeight=" + totalWeight +
-                ", MAX_WEIGHT=" + MAX_WEIGHT +
-                ", currentRoom=" + currentRoom ;
-    }
-
 
     @Override
     public String move(Direction direction)
@@ -47,14 +36,14 @@ public class HumanPlayer extends Player{
             return "There is no door!";
         } else {
             setCurrentRoom(nextRoom);
-            return this.toString();
+            return getPlayerLocationInfo();
         }
     }
 
     @Override
     public String look()
     {
-        return this.toString();
+        return getPlayerLocationInfo();
     }
 
     @Override
@@ -65,7 +54,7 @@ public class HumanPlayer extends Player{
             return "No " + itemDesc + " in the room";
         }
 
-        if (checkIfWeightAllowedToPlayer(w)) {
+        if (checkAllowedWeight(w)) {
             // The player is carrying too much
             return itemDesc + " is too heavy";
 

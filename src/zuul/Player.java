@@ -28,8 +28,8 @@ public abstract class Player {
         this.currentRoom = currentRoom;
     }
 
-    @Override
-    public String toString() {
+
+    public String getPlayerLocationInfo() {
 
         StringBuilder locationString=new StringBuilder();
         return locationString.append("Player")

@@ -22,10 +22,7 @@ import java.util.Set;
 public class Room {
     public String description;
     private HashMap<Direction, Room> exits;
-
-    // Characters in the room
     private ArrayList<Character> characters;
-
     private ArrayList<Item> items;
 
 
@@ -50,11 +47,18 @@ public class Room {
      * @param direction specifies the direction .
      * @param neighbor  specifies the neighboring room
      **/
-    public void setExit(Direction direction, Room neighbor) {
+    public void setExit(Direction direction, Room neighbor)
+    {
         exits.put(direction, neighbor);
     }
 
-    public Character getCharacter(String description) {
+    public Room getExits(Direction direction)
+    {
+        return exits.get(direction);
+    }
+
+    public Character getCharacter(String description)
+    {
         for (Character character : this.characters){
             if(character.getName().equals(description)){
                 return character;
@@ -64,19 +68,21 @@ public class Room {
 
     }
 
-    public void setCharacter(Character character) {
+    public void setCharacter(Character character)
+    {
         this.characters.add(character);
     }
 
-    public Room getExits(Direction direction) {
-        return exits.get(direction);
-    }
 
     /**
      * @return The description of the room.
      */
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description=description;
     }
 
     /**
@@ -124,7 +130,7 @@ public class Room {
     /**
      * returns all exits of the room in a string
      */
-    public String getRoomExitDetails() {
+    private String getRoomExitDetails() {
         StringBuilder roomDetails = new StringBuilder("Exits: ");
         Set<Direction> roomExitDirections = exits.keySet();
         for (Direction roomExits : roomExitDirections) {
@@ -136,7 +142,7 @@ public class Room {
     /**
      * if room contains items then this method returns all details in a string
      **/
-    public String getRoomItemDetails() {
+    private String getRoomItemDetails() {
         StringBuilder roomItemDetails = new StringBuilder();
         for(Item item : this.items){
             roomItemDetails.append(item.toString()).append(" ");
@@ -144,7 +150,7 @@ public class Room {
 
         return roomItemDetails.toString();
     }
-    public String getRoomCharacterDetails(){
+    private String getRoomCharacterDetails(){
         StringBuilder roomCharacterDetails = new StringBuilder();
         for(Character character : this.characters){
             roomCharacterDetails.append(character.toString()).append(" ");

@@ -23,11 +23,8 @@ public class Game {
 
     private final Parser parser;
     private List<Player> players;
-
     private static Player currentPlayer;
     private static int numberOfPlayers =1;
-
-
 
     /**
      * Create the game and initialise its internal map.
@@ -120,7 +117,7 @@ public class Game {
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
         System.out.println("Type 'help' if you need help.");
         System.out.println();
-        System.out.println(getCurrentPlayer().toString());
+        System.out.println(getCurrentPlayer().getPlayerLocationInfo());
     }
 
     /**
@@ -300,7 +297,7 @@ public class Game {
             return;
         }
         setCurrentPlayer((HumanPlayer) this.players.get(playerToSwitch));
-        System.out.println(getCurrentPlayer().toString());
+        System.out.println(getCurrentPlayer().getPlayerLocationInfo());
          }
 
 }
