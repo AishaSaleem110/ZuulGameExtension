@@ -82,7 +82,7 @@ public class HumanPlayer extends Player{
 
     @Override
     public String give(String itemDesc, String whom) {
-        if ((getCurrentRoom().getCharacter() == null) || !(getCurrentRoom().getCharacter().equals(whom))) {
+        if (getCurrentRoom().getCharacter(whom) == null) {
             return whom + " is not in the room";
         }
 

@@ -24,9 +24,10 @@ public class Room {
     private HashMap<Direction, Room> exits;
 
     // Characters in the room
-    private String character;
+    private ArrayList<Character> characters;
 
     private ArrayList<Item> items;
+
 
     /**
      * Create a room described "description". Initially, it has
@@ -36,7 +37,7 @@ public class Room {
      * @param description The room's description.
      */
     public Room(String description) {
-        this.character = null;
+        this.characters = new ArrayList<>();
         this.description = description;
         this.exits = new HashMap<>();
         this.items = new ArrayList<>();
@@ -53,12 +54,18 @@ public class Room {
         exits.put(direction, neighbor);
     }
 
-    public String getCharacter() {
-        return character;
+    public Character getCharacter(String description) {
+        for (Character character : this.characters){
+            if(character.getName().equals(description)){
+                return character;
+            }
+        }
+        return null;
+
     }
 
-    public void setCharacter(String character) {
-        this.character = character;
+    public void setCharacter(Character character) {
+        this.characters.add(character);
     }
 
     public Room getExits(Direction direction) {
@@ -137,6 +144,14 @@ public class Room {
 
         return roomItemDetails.toString();
     }
+    public String getRoomCharacterDetails(){
+        StringBuilder roomCharacterDetails = new StringBuilder();
+        for(Character character : this.characters){
+            roomCharacterDetails.append(character.toString()).append(System.lineSeparator());
+        }
+
+        return roomCharacterDetails.toString();
+    }
 
     @Override
     public String toString() {
@@ -145,7 +160,9 @@ public class Room {
         detailedDescription.append("You are ")
                 .append(getDescription()).append(System.lineSeparator())
                 .append(getRoomExitDetails()).append(System.lineSeparator())
-                .append("Items: ").append(getRoomItemDetails()).append(System.lineSeparator());
+                .append("Items: ").append(getRoomItemDetails()).append(System.lineSeparator())
+                .append("Characters:").append(getRoomCharacterDetails());
+
 
         return detailedDescription.toString();
     }

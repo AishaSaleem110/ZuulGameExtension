@@ -76,8 +76,10 @@ public class Game {
         outside.setExit(Direction.SOUTH, lab);
         outside.setExit(Direction.WEST, pub);
         outside.addItem("notebook", 2);
+        outside.setCharacter(new Character("SecurityGuard",null));
 
         theatre.setExit(Direction.WEST, outside);
+        theatre.setCharacter(new Character("Usher",null));
 
         pub.setExit(Direction.EAST, outside);
 
