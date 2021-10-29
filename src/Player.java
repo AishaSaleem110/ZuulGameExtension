@@ -1,6 +1,17 @@
 public abstract class Player {
     Room currentRoom;
     int playerId;
+
+    public Player() {
+    }
+
+    public Player(Room currentRoom, int playerId) {
+        this.currentRoom = currentRoom;
+        this.playerId = playerId;
+    }
+
+
+
     public int getPlayerId() {
         return playerId;
     }
@@ -18,7 +29,7 @@ public abstract class Player {
     }
 
 
-   abstract String move(Direction direction);
+    abstract String move(Direction direction);
     abstract String look();
     abstract String take(String itemDesc);
     abstract String drop(String itemDesc);

@@ -90,8 +90,8 @@ public class Room {
     public int containsItem(String description) {
 
         for(Item item: this.items){
-            if(item.getItemDescription().equals(description)){
-                return item.getItemWeight();
+            if(item.getDescription().equals(description)){
+                return item.getWeight();
             }
         }
         return 0;
@@ -103,7 +103,7 @@ public class Room {
     public String removeItem(String description) {
         Iterator<Item> iterator = this.items.iterator();
         while(iterator.hasNext()){
-            if(iterator.next().getItemDescription().equals(description)){
+            if(iterator.next().getDescription().equals(description)){
                 iterator.remove();
                 return description;
             }
@@ -130,22 +130,20 @@ public class Room {
     public String getRoomItemDetails() {
         StringBuilder roomItemDetails = new StringBuilder();
         for(Item item : this.items){
-            roomItemDetails.append(item.getItemsDetailString()).append("\n");
+            roomItemDetails.append(item.toString());
         }
 
         return roomItemDetails.toString();
     }
 
-    /**
-     * returns all details of a room including its all exits in all directions and items and weights of those items in a string
-     */
-    public String getRoomDetailedDescription() {
+    @Override
+    public String toString() {
         StringBuilder detailedDescription = new StringBuilder();
 
         detailedDescription.append("You are ")
-                .append(getDescription()).append("\n")
-                .append(getRoomExitDetails()).append("\n")
-                .append("Items: ").append(getRoomItemDetails()).append("\n");
+                .append(getDescription()).append(System.lineSeparator())
+                .append(getRoomExitDetails()).append(System.lineSeparator())
+                .append("Items: ").append(getRoomItemDetails()).append(System.lineSeparator());
 
         return detailedDescription.toString();
     }

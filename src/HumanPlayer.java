@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class HumanPlayer extends Player{
@@ -6,14 +5,13 @@ public class HumanPlayer extends Player{
     private HashMap<String, Integer> items;
     private int totalWeight;
     private final int MAX_WEIGHT = 10;
-    private int playerId;
+
 
     public HumanPlayer(Room currentRoom, int id) {
-
+        super(currentRoom,id);
         this.items = new HashMap<>();
         this.totalWeight = 0;
         this.currentRoom = currentRoom;
-        this.playerId=id;
     }
 
     private boolean checkPlayerHasItem(String item) {
@@ -26,13 +24,12 @@ public class HumanPlayer extends Player{
 
     @Override
     public String toString() {
-        return "Player{" +
+        return "Player: " +
                 "playerId=" + playerId+
                 "items=" + items +
                 ", totalWeight=" + totalWeight +
                 ", MAX_WEIGHT=" + MAX_WEIGHT +
-                ", currentRoom=" + currentRoom +
-                '}';
+                ", currentRoom=" + currentRoom ;
     }
 
 

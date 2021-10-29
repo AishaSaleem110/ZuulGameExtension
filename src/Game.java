@@ -201,7 +201,7 @@ public class Game {
         String directionString = command.getSecondWord();
 
         Direction direction = Direction.getDirectionEnum(directionString);
-        if (direction == Direction.UNKNOWN) {
+        if (direction.equals(Direction.UNKNOWN)) {
             System.out.println("That is not a direction...");
             return;
         }
@@ -309,7 +309,7 @@ public class Game {
 
     private void printLocationInfo() {
         System.out.println("Player" + getCurrentPlayer().getPlayerId());
-        System.out.println(this.getCurrentPlayer().getCurrentRoom().getRoomDetailedDescription());
+        System.out.println(this.getCurrentPlayer().getCurrentRoom().toString());
     }
     private void printAllPlayers(){
         for (Player player:this.players

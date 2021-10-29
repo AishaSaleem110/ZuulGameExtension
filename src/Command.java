@@ -38,6 +38,9 @@ public class Command {
 
     }
 
+    public Command() {
+    }
+
     /**
      * Return the command word (the first word) of this command. If the
      * command was not understood, the result is null.

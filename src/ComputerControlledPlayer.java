@@ -1,4 +1,9 @@
 public class ComputerControlledPlayer extends Player {
+
+    public ComputerControlledPlayer(Room currentRoom, int playerId) {
+        super(currentRoom, playerId);
+    }
+
     @Override
     String move(Direction direction) {
         return null;
