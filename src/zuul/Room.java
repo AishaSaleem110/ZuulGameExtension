@@ -123,7 +123,7 @@ public class Room {
                 return description;
             }
         }
-        return "This room does not contain" + description;
+        return "This room does not contain this item.";
     }
 
 
@@ -163,7 +163,7 @@ public class Room {
     public String toString() {
         StringBuilder detailedDescription = new StringBuilder();
 
-        detailedDescription.append("You are ")
+        detailedDescription
                 .append(getDescription()).append(System.lineSeparator())
                 .append(getRoomExitDetails()).append(System.lineSeparator())
                 .append("Items: ").append(getRoomItemDetails()).append(System.lineSeparator())

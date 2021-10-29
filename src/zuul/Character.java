@@ -32,13 +32,7 @@ public class Character {
     }
 
     public String speak(){
-        StringBuilder introduction=new StringBuilder();
-        introduction.append("Hi, I am ").append(name).append(" and I have items:").append(System.lineSeparator());
-        for (Item item:this.items
-             ) {
-            introduction.append(item.toString()).append(" ");
-        }
-        return introduction.toString();
+    return null;
     }
 
     @Override

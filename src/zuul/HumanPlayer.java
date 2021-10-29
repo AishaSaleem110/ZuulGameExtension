@@ -51,12 +51,12 @@ public class HumanPlayer extends Player{
         int w = getCurrentRoom().containsItem(itemDesc);
         if (w == 0) {
             // The item is not in the room
-            return "No " + itemDesc + " in the room";
+            return "Item is not in the room.";
         }
 
         if (checkAllowedWeight(w)) {
             // The player is carrying too much
-            return itemDesc + " is too heavy";
+            return "Item is too heavy";
 
         } else {
             items.put(itemDesc, w);
@@ -69,7 +69,7 @@ public class HumanPlayer extends Player{
     @Override
     public String drop(String itemDesc) {
         if (!checkPlayerHasItem(itemDesc)) {
-            return "You don't have the " + itemDesc;
+            return "You don't have this item.";
         }
         else {
 
@@ -84,19 +84,19 @@ public class HumanPlayer extends Player{
     @Override
     public String give(String itemDesc, String whom) {
         if (getCurrentRoom().getCharacter(whom) == null) {
-            return whom + " is not in the room";
+            return "This character is not in the room.";
         }
 
         if (!checkPlayerHasItem(itemDesc)) {
 
-            return "You don't have the " + itemDesc;
+            return "You don't have this item.";
         } else {
             int w=this.items.get(itemDesc);
             totalWeight -= w;
             getCurrentRoom().getCharacter(whom).addItem(new Item(itemDesc,w));
             items.remove(itemDesc);
 
-            return "Item has been given to " + whom;
+            return "Item has been given to the requested character.";
         }
     }
 

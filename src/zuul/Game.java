@@ -61,11 +61,11 @@ public class Game {
     private Room createRooms() {
         Room outside, theatre, pub, lab, office;
         // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theatre = new Room("in a lecture theatre");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
+        outside = new Room("You are outside the main entrance of the university");
+        theatre = new Room("You are in a lecture theatre");
+        pub = new Room("You are in the campus pub");
+        lab = new Room("You are in a computing lab");
+        office = new Room("You are in the computing admin office");
 
         // initialise room exits
 
@@ -293,7 +293,7 @@ public class Game {
 
         int playerToSwitch=Integer.parseInt(command.getSecondWord());
         if((playerToSwitch>=players.size())){
-            System.out.println("Player " + playerToSwitch + " is not in the game.");
+            System.out.println("Player requested is not in the game.");
             return;
         }
         setCurrentPlayer((HumanPlayer) this.players.get(playerToSwitch));
