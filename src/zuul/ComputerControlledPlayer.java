@@ -1,3 +1,5 @@
+package zuul;
+
 public class ComputerControlledPlayer extends Player {
 
     public ComputerControlledPlayer(Room currentRoom, int playerId) {

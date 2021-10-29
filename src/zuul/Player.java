@@ -1,3 +1,5 @@
+package zuul;
+
 public abstract class Player {
     Room currentRoom;
     int playerId;

@@ -1,3 +1,5 @@
+package zuul;
+
 import java.util.HashMap;
 
 public class HumanPlayer extends Player{
@@ -24,7 +26,7 @@ public class HumanPlayer extends Player{
 
     @Override
     public String toString() {
-        return "Player: " +
+        return "zuul.Player: " +
                 "playerId=" + playerId+
                 "items=" + items +
                 ", totalWeight=" + totalWeight +
@@ -59,7 +61,7 @@ public class HumanPlayer extends Player{
             items.put(itemDesc, w);
             totalWeight += w;
             currentRoom.removeItem(itemDesc);
-            return "Item has been picked up.";
+            return "zuul.Item has been picked up.";
         }
     }
 
@@ -74,7 +76,7 @@ public class HumanPlayer extends Player{
             getCurrentRoom().addItem(itemDesc, items.get(itemDesc));
             items.remove(itemDesc);
 
-            return "Item has been dropped.";
+            return "zuul.Item has been dropped.";
         }
     }
 
@@ -92,7 +94,7 @@ public class HumanPlayer extends Player{
             totalWeight -= items.get(itemDesc);
             items.remove(itemDesc);
 
-            return "Item has been given to " + whom;
+            return "zuul.Item has been given to " + whom;
         }
     }
 }

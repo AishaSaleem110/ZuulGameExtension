@@ -1,4 +1,4 @@
-import java.util.HashMap;
+package zuul;
 
 public enum Direction {
 

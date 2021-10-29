@@ -1,3 +1,4 @@
+package zuul;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,7 +91,7 @@ public class Game {
     }
 
     /**
-     * Main play routine. Loops until end of play.
+     * zuul.Main play routine. Loops until end of play.
      */
     public void play() {
         printWelcome();
@@ -300,7 +301,7 @@ public class Game {
 
         int playerToSwitch=Integer.parseInt(command.getSecondWord());
         if((playerToSwitch>=players.size())){
-            System.out.println("Player "+playerToSwitch+" is not in the game.");
+            System.out.println("zuul.Player "+playerToSwitch+" is not in the game.");
             return;
         }
         setCurrentPlayer((HumanPlayer) this.players.get(playerToSwitch));
@@ -308,7 +309,7 @@ public class Game {
          }
 
     private void printLocationInfo() {
-        System.out.println("Player" + getCurrentPlayer().getPlayerId());
+        System.out.println("zuul.Player" + getCurrentPlayer().getPlayerId());
         System.out.println(this.getCurrentPlayer().getCurrentRoom().toString());
     }
     private void printAllPlayers(){

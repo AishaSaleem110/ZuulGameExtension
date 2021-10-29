@@ -1,8 +1,10 @@
+package zuul;
+
 /**
  * This class is part of the "World of Zuul" application.
  * "World of Zuul" is a very simple, text based adventure game.
  *
- * This class represents items that can be used in Room class
+ * This class represents items that can be used in zuul.Room class
  *
  * @author  Aisha Saleem
  * @version 2021.10.25

@@ -1,15 +1,17 @@
+package zuul;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
 /**
- * Class Room - a room in an adventure game.
+ * Class zuul.Room - a room in an adventure game.
  * <p>
  * This class is part of the "World of Zuul" application.
  * "World of Zuul" is a very simple, text based adventure game.
  * <p>
- * A "Room" represents one location in the scenery of the game.  It is
+ * A "zuul.Room" represents one location in the scenery of the game.  It is
  * connected to other rooms via exits.  The exits are labelled north,
  * east, south, west.  For each direction, the room stores a reference
  * to the neighboring room, or null if there is no exit in that direction.
@@ -71,7 +73,7 @@ public class Room {
     }
 
     /**
-     * Add an item to the Room
+     * Add an item to the zuul.Room
      *
      * @param description The description of the item
      * @param weight      The item's weight
@@ -98,7 +100,7 @@ public class Room {
     }
 
     /**
-     * Remove an item from the Room
+     * Remove an item from the zuul.Room
      */
     public String removeItem(String description) {
         Iterator<Item> iterator = this.items.iterator();
