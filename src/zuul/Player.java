@@ -38,11 +38,11 @@ public abstract class Player {
                 .append(getCurrentRoom().toString()).toString();
     }
 
-    abstract String move(Direction direction);
-    abstract String look();
-    abstract String take(String itemDesc);
-    abstract String drop(String itemDesc);
-    abstract String give(String itemDesc, String whom);
+    abstract public String move(Direction direction);
+    abstract public String look();
+    abstract public String take(String itemDesc);
+    abstract public String drop(String itemDesc);
+    abstract public String give(String itemDesc, String whom);
 
 
 

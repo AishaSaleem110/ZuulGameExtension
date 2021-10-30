@@ -1,5 +1,9 @@
 package zuul;
 
+import zuul.Actions.Action;
+import zuul.Actions.ActionInvoker;
+import zuul.Actions.DropAction;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +27,7 @@ public class Game {
 
     private final Parser parser;
     private List<Player> players;
-    private static Player currentPlayer;
+    private Player currentPlayer;
     private static int numberOfPlayers =1;
 
     /**
@@ -37,12 +41,6 @@ public class Game {
         parser = new Parser();
     }
 
-    private void createPlayers(int numberOfPlayers,Room entryRoom){
-        for(int i=0;i<numberOfPlayers;i++){
-            players.add(new HumanPlayer(entryRoom,i));
-        }
-    }
-
     public static void setNumberOfPlayers(int numberOfPlayers) {
         Game.numberOfPlayers = numberOfPlayers;
     }
@@ -51,8 +49,16 @@ public class Game {
         return this.currentPlayer;
     }
 
-    public void setCurrentPlayer(HumanPlayer currentPlayer) {
+    public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
     }
 
     /**
@@ -91,6 +97,11 @@ public class Game {
         return outside;
     }
 
+    private void createPlayers(int numberOfPlayers,Room entryRoom){
+        for(int i=0;i<numberOfPlayers;i++){
+            players.add(new HumanPlayer(entryRoom,i));
+        }
+    }
     /**
      * Main play routine. Loops until end of play.
      */
@@ -103,7 +114,9 @@ public class Game {
         boolean finished = false;
         while (!finished) {
             Command command = parser.getCommand();
+
             finished = processCommand(command);
+
         }
         System.out.println("Thank you for playing.  Good bye.");
     }
@@ -126,178 +139,21 @@ public class Game {
      * @param command The command to be processed.
      * @return true If the command ends the game, false otherwise.
      */
-    private boolean processCommand(Command command) {
+
+    private boolean processCommand(Command command)
+    {
         boolean wantToQuit = false;
-
-        if (command.isUnknown()) {
-            System.out.println("I don't know what you mean...");
-            return false;
+        ActionInvoker actionInvoker=new ActionInvoker(command,currentPlayer);
+        String response=actionInvoker.executeAction();
+        if(response.equals(CommandWord.QUIT.name())){
+            wantToQuit=true;
         }
-
-        CommandWord commandWord = command.getCommandWord();
-        switch (commandWord) {
-            case UNKNOWN: {
-                System.out.println("I don't know what you mean...");
-                break;
-            }
-            case HELP: {
-                printHelp();
-                break;
-            }
-            case GO: {
-                goRoom(command);
-                break;
-            }
-            case QUIT: {
-                wantToQuit = quit(command);
-                break;
-            }
-            case LOOK: {
-                look();
-                break;
-            }
-            case TAKE: {
-                take(command);
-                break;
-            }
-            case DROP: {
-                drop(command);
-                break;
-            }
-            case GIVE: {
-                give(command);
-                break;
-            }
-            case PLAYER:{
-                changePlayer(command);
-                break;
-            }
+        else{
+            System.out.println(response);
         }
         return wantToQuit;
-    }
-
-    /**
-     * Print out some help information. Here we print some stupid, cryptic
-     * message and a list of the command words.
-     */
-    private void printHelp() {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
-        System.out.println();
-        System.out.println("Your command words are:");
-        System.out.println(parser.showAllCommands());
 
     }
 
-    /**
-     * Try to go to one direction. If there is an exit, enter the new room,
-     * otherwise print an error message.
-     */
-    private void goRoom(Command command) {
-        if (!command.hasSecondWord()) {
-            // if there is no second word, we don't know where to go...
-            System.out.println("Go where?");
-            return;
-        }
-
-        String directionString = command.getSecondWord();
-
-        Direction direction = Direction.getDirectionEnum(directionString);
-        if (direction.equals(Direction.UNKNOWN)) {
-            System.out.println("That is not a direction...");
-            return;
-        }
-        System.out.println(this.getCurrentPlayer().move(direction));
-
-    }
-
-    /**
-     * "Look" was entered. Report what the player can see in the room
-     */
-    private void look() {
-        System.out.println(getCurrentPlayer().look());
-    }
-
-    /**
-     * Try to take an item from the current room, otherwise print an error
-     * message.
-     */
-    private void take(Command command) {
-        if (!command.hasSecondWord()) {
-            // if there is no second word, we don't know what to take...
-            System.out.println("Take what?");
-            return;
-        }
-
-        String item = command.getSecondWord();
-        System.out.println(this.getCurrentPlayer().take(item));
-
-    }
-
-    /**
-     * Try to drop an item, otherwise print an error message.
-     */
-    private void drop(Command command) {
-        if (!command.hasSecondWord()) {
-            // if there is no second word, we don't know what to drop...
-            System.out.println("Drop what?");
-            return;
-        }
-        String item = command.getSecondWord();
-        System.out.println(this.getCurrentPlayer().drop(item));
-    }
-
-    /**
-     * Try to drop an item, otherwise print an error message.
-     */
-    private void give(Command command) {
-        if (!command.hasSecondWord()) {
-            // if there is no second word, we don't know what to give...
-            System.out.println("Give what?");
-            return;
-        }
-        if (!command.hasThirdWord()) {
-            // if there is no third word, we don't to whom to give it...
-            System.out.println("Give it to who?");
-            return;
-        }
-
-        String item = command.getSecondWord();
-        String whom = command.getThirdWord();
-
-        System.out.println(this.getCurrentPlayer().give(item, whom));
-
-
-    }
-
-    /**
-     * "Quit" was entered. Check the rest of the command to see whether we
-     * really quit the game.
-     *
-     * @return true, if this command quits the game, false otherwise.
-     */
-    private boolean quit(Command command) {
-        if (command.hasSecondWord()) {
-            System.out.println("Quit what?");
-            return false;
-        } else {
-            return true;  // signal that we want to quit
-        }
-    }
-
-    private void changePlayer(Command command){
-        if (!command.hasSecondWord()) {
-            System.out.println("switch to?");
-            return;
-        }
-
-        int playerToSwitch=Integer.parseInt(command.getSecondWord());
-        if((playerToSwitch>=players.size())){
-            System.out.println("Player requested is not in the game.");
-            return;
-        }
-        setCurrentPlayer((HumanPlayer) this.players.get(playerToSwitch));
-        System.out.println(getCurrentPlayer().getPlayerLocationInfo());
-         }
 
 }
