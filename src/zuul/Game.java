@@ -29,16 +29,25 @@ public class Game {
     private List<Player> players;
     private Player currentPlayer;
     private static int numberOfPlayers =1;
+    private static Game game = null;
 
     /**
      * Create the game and initialise its internal map.
      */
-    public Game() {
+    private Game() {
         Room entryRoom = createRooms();
         players = new ArrayList<>();
         createPlayers(numberOfPlayers,entryRoom);
-        setCurrentPlayer((HumanPlayer) players.get(0));
+        setCurrentPlayer(players.get(0));
         parser = new Parser();
+    }
+
+
+    public static Game getInstance() {
+        if (game == null) {
+            game=new Game();
+        }
+         return game;
     }
 
     public static void setNumberOfPlayers(int numberOfPlayers) {

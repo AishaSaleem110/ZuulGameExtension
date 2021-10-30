@@ -23,7 +23,7 @@ public class ActionInvoker {
     public String executeAction() {
         CommandWord commandWord = command.getCommandWord();
         try {
-            Class c = Class.forName("zuul.Actions." + convertToTitleCaseIteratingChars(commandWord.name()) + "Action");
+            Class c = Class.forName("zuul.Actions." + convertToTitleCase(commandWord.name()) + "Action");
             action = (Action) c.getDeclaredConstructor().newInstance();
             return action.execute(command, currentPlayer);
 
@@ -32,11 +32,9 @@ public class ActionInvoker {
             return unknownAction.execute(null,null);
 
         }
-
-
     }
 
-    private static String convertToTitleCaseIteratingChars(String text) {
+    private static String convertToTitleCase(String text) {
         if (text == null || text.isEmpty()) {
             return text;
         }

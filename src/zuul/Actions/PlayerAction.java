@@ -9,7 +9,7 @@ public class PlayerAction implements Action{
     Game game;
 
     public PlayerAction() {
-        this.game = new Game();
+        this.game = Game.getInstance();
     }
 
     @Override
