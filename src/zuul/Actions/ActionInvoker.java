@@ -4,11 +4,6 @@ import zuul.Command;
 import zuul.CommandWord;
 import zuul.Player;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import static java.awt.SystemColor.text;
 
 public class ActionInvoker {
     Action action;
@@ -23,7 +18,8 @@ public class ActionInvoker {
     public String executeAction() {
         CommandWord commandWord = command.getCommandWord();
         try {
-            Class c = Class.forName("zuul.Actions." + convertToTitleCase(commandWord.name()) + "Action");
+
+            Class c = Class.forName(this.getClass().getPackage().getName() +"."+ convertToTitleCase(commandWord.name()) + "Action");
             action = (Action) c.getDeclaredConstructor().newInstance();
             return action.execute(command, currentPlayer);
 
