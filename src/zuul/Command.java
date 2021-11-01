@@ -7,9 +7,12 @@ import zuul.Enums.CommandWord;
  * "World of Zuul" is a very simple, text based adventure game.
  * <p>
  * This class holds information about a command that was issued by the user.
- * A command currently consists of two strings: a command word and a second
+ * A command currently consists of three strings: a command word and a second
  * word (for example, if the command was "take map", then the two strings
  * obviously are "take" and "map").
+ * for three word commands, a command word and a second word and a third word
+ * (for example, if the command was "give notebook kiara", the the three strings are
+ * "give","notebook" and "kiara"
  * <p>
  * The way this is used is: Commands are already checked for being valid
  * command words. If the user entered an invalid command (a word that is not
@@ -27,13 +30,12 @@ public class Command {
     private String thirdWord;
 
     /**
-     * Create a command object. First and second word must be supplied, but
-     * either one (or both) can be null.
+     * Create a command object. First word must be supplied, second and third word can be null depending on the command issued
      *
      * @param firstWord  The first word of the command. Null if the command
      *                   was not recognised.
      * @param secondWord The second word of the command.
-     * @param thirdWord  The second word of the command.
+     * @param thirdWord  The third word of the command.
      */
     public Command(CommandWord firstWord, String secondWord, String thirdWord) {
         commandWord = firstWord;
@@ -42,6 +44,9 @@ public class Command {
 
     }
 
+    /**
+     * parameterless constructor of Command class
+     */
     public Command() {
     }
 

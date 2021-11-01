@@ -14,7 +14,9 @@ import java.util.Scanner;
  * The parser has a set of known command words. It checks user input against
  * the known commands, and if the input is not one of the known commands, it
  * returns a command object that is marked as an unknown command.
- * 
+ *
+ * The parser follows Singleton Design pattern hence only one instance of Parser class can be created at a given time.
+ *
  * @author  Michael Kolling and David J. Barnes
  * @version 2006.03.30
  */
@@ -32,6 +34,11 @@ public class Parser
         reader = new Scanner(System.in);
     }
 
+    /**
+     *
+     * @return instance of a Parser if its already created
+     * else create an instance of Parser class and then return it
+     */
     public static Parser getInstance() {
         if (parser == null) {
             parser=new Parser();
@@ -73,6 +80,10 @@ public class Parser
 
     }
 
+    /**
+     *
+     * @return as String literal the list of all valid commands from the CommandWordsOperations class
+     */
     public String showAllCommands(){
         return commands.printAllCommands();
     }

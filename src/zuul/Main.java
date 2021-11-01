@@ -11,6 +11,9 @@ public class Main {
 
     /**
      * @param args the command line arguments
+     * Sets the number of player required in the Game
+     * Creates an instance of the Game
+     * Starts playing game
      */
     public static void main(String[] args) {
 
