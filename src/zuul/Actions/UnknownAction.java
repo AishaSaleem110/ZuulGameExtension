@@ -1,7 +1,7 @@
 package zuul.Actions;
 
 import zuul.Command;
-import zuul.Player;
+import zuul.Players.Player;
 
 public class UnknownAction implements Action{
     public UnknownAction() {

@@ -1,8 +1,8 @@
 package zuul.Actions;
 
 import zuul.Command;
-import zuul.CommandWord;
-import zuul.Player;
+import zuul.Enums.CommandWord;
+import zuul.Players.Player;
 
 /**
  * "Quit" was entered. Check the rest of the command to see whether we

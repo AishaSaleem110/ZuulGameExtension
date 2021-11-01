@@ -1,7 +1,12 @@
-package zuul;
+package zuul.Players;
+
+import zuul.Enums.Direction;
+import zuul.Room;
 
 public class ComputerControlledPlayer extends Player {
-
+    ComputerControlledPlayer(){
+        super();
+    }
     public ComputerControlledPlayer(Room currentRoom, int playerId) {
         super(currentRoom, playerId);
     }

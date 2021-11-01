@@ -1,4 +1,4 @@
-package zuul;
+package zuul.Enums;
 
 public enum Direction {
 

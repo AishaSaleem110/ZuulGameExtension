@@ -1,7 +1,7 @@
 package zuul.Actions;
 
 import zuul.Command;
-import zuul.Player;
+import zuul.Players.Player;
 
 /**
  * "Look" was entered. Report what the player can see in the room

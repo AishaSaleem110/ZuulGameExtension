@@ -1,7 +1,7 @@
 package zuul.Actions;
 
 import zuul.Command;
-import zuul.Player;
+import zuul.Players.Player;
 
 /**
  * Try to drop an item, otherwise print an error message.

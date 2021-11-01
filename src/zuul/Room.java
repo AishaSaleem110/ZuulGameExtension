@@ -1,5 +1,7 @@
 package zuul;
 
+import zuul.Enums.Direction;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;

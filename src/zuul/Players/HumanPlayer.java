@@ -1,8 +1,13 @@
-package zuul;
+package zuul.Players;
+
+import zuul.Enums.Direction;
+import zuul.Item;
+import zuul.Players.Player;
+import zuul.Room;
 
 import java.util.HashMap;
 
-public class HumanPlayer extends Player{
+public class HumanPlayer extends Player {
 
     private HashMap<String, Integer> items;
     private int totalWeight;

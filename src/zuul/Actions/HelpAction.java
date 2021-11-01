@@ -2,7 +2,7 @@ package zuul.Actions;
 
 import zuul.Command;
 import zuul.Parser;
-import zuul.Player;
+import zuul.Players.Player;
 
 /**
  * Print out some help information. Here we print some stupid, cryptic

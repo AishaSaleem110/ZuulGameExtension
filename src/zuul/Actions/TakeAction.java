@@ -1,7 +1,7 @@
 package zuul.Actions;
 
 import zuul.Command;
-import zuul.Player;
+import zuul.Players.Player;
 
 /**
  * Try to take an item from the current room, otherwise print an error

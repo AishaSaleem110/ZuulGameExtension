@@ -1,4 +1,7 @@
-package zuul;
+package zuul.Players;
+
+import zuul.Enums.Direction;
+import zuul.Room;
 
 public abstract class Player {
     Room currentRoom;

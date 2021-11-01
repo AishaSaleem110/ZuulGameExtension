@@ -1,5 +1,7 @@
-package zuul;
+package zuul.Players;
 
+
+import zuul.Room;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ public class PlayerFactory {
 
             }
         } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
+            return playerList;
         }
 
         return playerList;

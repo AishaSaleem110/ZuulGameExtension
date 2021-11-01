@@ -2,8 +2,7 @@ package zuul.Actions;
 
 import zuul.Command;
 import zuul.Game;
-import zuul.HumanPlayer;
-import zuul.Player;
+import zuul.Players.Player;
 
 public class PlayerAction implements Action{
     Game game;
@@ -24,7 +23,7 @@ public class PlayerAction implements Action{
 
         }
         game.setCurrentPlayer(game.getPlayers().get(playerToSwitch));
-        return currentPlayer.getPlayerLocationInfo();
+        return game.getCurrentPlayer().getPlayerLocationInfo();
 
     }
 }

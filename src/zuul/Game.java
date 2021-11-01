@@ -1,8 +1,12 @@
 package zuul;
 
-import zuul.Actions.Action;
 import zuul.Actions.ActionInvoker;
-import zuul.Actions.DropAction;
+import zuul.Enums.CommandWord;
+import zuul.Enums.Direction;
+import zuul.Players.ComputerControlledPlayer;
+import zuul.Players.HumanPlayer;
+import zuul.Players.Player;
+import zuul.Players.PlayerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +39,11 @@ public class Game {
      * Create the game and initialise its internal map.
      */
     private Game() {
+        parser = Parser.getInstance();
         Room entryRoom = createRooms();
         players = new ArrayList<>();
-        createPlayers(HumanPlayer.class.getName(),numberOfPlayers,entryRoom);
-        Player p=players.get(0);
-        setCurrentPlayer(p);
-        parser = Parser.getInstance();
+        createPlayers(ComputerControlledPlayer.class.getName(),numberOfPlayers,entryRoom);
+        setCurrentPlayer(players.get(0));
     }
 
 
@@ -155,7 +158,7 @@ public class Game {
         boolean wantToQuit = false;
         ActionInvoker actionInvoker=new ActionInvoker(command,currentPlayer);
         String response=actionInvoker.executeAction();
-        if(response.equals(CommandWord.QUIT.name())){
+        if(response!=null && response.equals(CommandWord.QUIT.name())){
             wantToQuit=true;
         }
         else{

@@ -1,5 +1,7 @@
 package zuul;
 
+import zuul.Enums.CommandWord;
+
 import java.util.HashMap;
 
 /**
@@ -16,7 +18,7 @@ import java.util.HashMap;
 public class CommandWordsOperations
 {
 
-    private HashMap<String,CommandWord> validCommands;
+    private HashMap<String, CommandWord> validCommands;
 
     public CommandWordsOperations()
     {

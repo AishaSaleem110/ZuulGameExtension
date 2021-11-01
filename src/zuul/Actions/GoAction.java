@@ -1,8 +1,8 @@
 package zuul.Actions;
 
 import zuul.Command;
-import zuul.Direction;
-import zuul.Player;
+import zuul.Enums.Direction;
+import zuul.Players.Player;
 /**
  * Try to go to one direction. If there is an exit, enter the new room,
  * otherwise print an error message.
