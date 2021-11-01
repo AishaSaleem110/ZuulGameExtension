@@ -4,6 +4,15 @@ import zuul.Command;
 import zuul.Enums.CommandWord;
 import zuul.Players.Player;
 
+/**
+ * This class is part of the "World of Zuul" application.
+ * "World of Zuul" is a very simple, text based adventure game.
+ * <p>
+ * This class represents an implementation of Command design pattern to invoke commands within the game application
+ *
+ * @author Aisha Saleem
+ * @version 2021.10.25
+ */
 
 public class ActionInvoker {
     Action action;
@@ -15,17 +24,21 @@ public class ActionInvoker {
         this.currentPlayer = currentPlayer;
     }
 
+    /**
+     * It internally calls the execute method of the action object which in turn executes the command
+     * @return
+     */
     public String executeAction() {
         CommandWord commandWord = command.getCommandWord();
         try {
 
-            Class c = Class.forName(this.getClass().getPackage().getName() +"."+ convertToTitleCase(commandWord.name()) + "Action");
+            Class c = Class.forName(this.getClass().getPackage().getName() + "." + convertToTitleCase(commandWord.name()) + "Action");
             action = (Action) c.getDeclaredConstructor().newInstance();
             return action.execute(command, currentPlayer);
 
         } catch (Exception e) {
-            UnknownAction unknownAction=new UnknownAction();
-            return unknownAction.execute(null,null);
+            UnknownAction unknownAction = new UnknownAction();
+            return unknownAction.execute(null, null);
 
         }
     }

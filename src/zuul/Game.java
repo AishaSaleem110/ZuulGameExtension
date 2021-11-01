@@ -4,6 +4,7 @@ import zuul.Actions.ActionInvoker;
 import zuul.Enums.CommandWord;
 import zuul.Enums.Direction;
 import zuul.Players.ComputerControlledPlayer;
+import zuul.Players.HumanPlayer;
 import zuul.Players.Player;
 import zuul.Players.PlayerFactory;
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class Game {
         parser = Parser.getInstance();
         Room entryRoom = createRooms();
         players = new ArrayList<>();
-        createPlayers(ComputerControlledPlayer.class.getName(), numberOfPlayers, entryRoom);
+        createPlayers(HumanPlayer.class.getName(), numberOfPlayers, entryRoom);
         setCurrentPlayer(players.get(0));
     }
 

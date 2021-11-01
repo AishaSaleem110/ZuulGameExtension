@@ -5,13 +5,17 @@ import zuul.Enums.CommandWord;
 import zuul.Players.Player;
 
 /**
- * "Quit" was entered. Check the rest of the command to see whether we
- * really quit the game.
- *
- * @return true, if this command quits the game, false otherwise.
+ * This class is part of the "World of Zuul" application.
+ * "World of Zuul" is a very simple, text based adventure game.
+ * <p>
+ * This class implements Action interface
+ * It is used to quit the game
+ * Example of command invocation: quit
+ * @author Aisha Saleem
+ * @version 2021.10.25
  */
 
-public class QuitAction implements Action{
+public class QuitAction implements Action {
     public QuitAction() {
     }
 
