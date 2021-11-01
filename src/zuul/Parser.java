@@ -22,14 +22,21 @@ public class Parser
 {
     private CommandWordsOperations commands;  // holds all valid command words
     private Scanner reader;         // source of command input
-
+    private static Parser parser=null;
     /**
      * Create a parser to read from the terminal window.
      */
-    public Parser() 
+    private Parser()
     {
         commands = new CommandWordsOperations();
         reader = new Scanner(System.in);
+    }
+
+    public static Parser getInstance() {
+        if (parser == null) {
+            parser=new Parser();
+        }
+        return parser;
     }
 
     /**

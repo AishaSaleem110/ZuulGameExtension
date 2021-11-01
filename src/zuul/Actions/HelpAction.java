@@ -13,7 +13,7 @@ public class HelpAction implements Action{
     Parser parser;
 
     public HelpAction() {
-        this.parser = new Parser();
+        this.parser = Parser.getInstance();
     }
 
     @Override

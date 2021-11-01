@@ -39,7 +39,7 @@ public class Game {
         players = new ArrayList<>();
         createPlayers(numberOfPlayers,entryRoom);
         setCurrentPlayer(players.get(0));
-        parser = new Parser();
+        parser = Parser.getInstance();
     }
 
 
