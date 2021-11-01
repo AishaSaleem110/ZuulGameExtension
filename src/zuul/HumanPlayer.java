@@ -9,11 +9,18 @@ public class HumanPlayer extends Player{
     private final int MAX_WEIGHT = 10;
 
 
+
     public HumanPlayer(Room currentRoom, int id) {
         super(currentRoom,id);
         this.items = new HashMap<>();
         this.totalWeight = 0;
         this.currentRoom = currentRoom;
+    }
+
+    public HumanPlayer() {
+        super();
+        this.items = new HashMap<>();
+        this.totalWeight = 0;
     }
 
     private boolean checkPlayerHasItem(String item)

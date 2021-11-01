@@ -37,8 +37,9 @@ public class Game {
     private Game() {
         Room entryRoom = createRooms();
         players = new ArrayList<>();
-        createPlayers(numberOfPlayers,entryRoom);
-        setCurrentPlayer(players.get(0));
+        createPlayers(HumanPlayer.class.getName(),numberOfPlayers,entryRoom);
+        Player p=players.get(0);
+        setCurrentPlayer(p);
         parser = Parser.getInstance();
     }
 
@@ -106,10 +107,10 @@ public class Game {
         return outside;
     }
 
-    private void createPlayers(int numberOfPlayers,Room entryRoom){
-        for(int i=0;i<numberOfPlayers;i++){
-            players.add(new HumanPlayer(entryRoom,i));
-        }
+    private void createPlayers(String player, int numberOfPlayers, Room entryRoom){
+        PlayerFactory playerFactory=new PlayerFactory();
+        List<Player> p=playerFactory.createPlayers(player,numberOfPlayers,entryRoom);
+        setPlayers(p);
     }
     /**
      * Main play routine. Loops until end of play.
