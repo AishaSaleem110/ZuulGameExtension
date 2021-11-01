@@ -62,7 +62,7 @@ public class Game {
 
     /**
      * Sets the numbers of players that are required in the game
-     * @param numberOfPlayers
+     * @param numberOfPlayers -int number of players required in game
      */
     public static void setNumberOfPlayers(int numberOfPlayers) {
         Game.numberOfPlayers = numberOfPlayers;
@@ -94,7 +94,7 @@ public class Game {
 
     /**
      * Setter method to set a list of players in the game
-     * @param players
+     * @param players -list of players
      */
     public void setPlayers(List<Player> players) {
         this.players = players;

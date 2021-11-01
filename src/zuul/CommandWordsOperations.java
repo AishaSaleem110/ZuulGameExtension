@@ -57,15 +57,4 @@ public class CommandWordsOperations {
         }
         return commandListString.toString();
     }
-
-    /**
-     * Check whether a given String is a valid command word.
-     *
-     * @return true if a given string is a valid command,
-     * false if it isn't.
-     */
-    public boolean isCommand(String aString) {
-        return validCommands.containsKey(aString);
-
-    }
 }

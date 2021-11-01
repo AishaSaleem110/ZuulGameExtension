@@ -34,7 +34,7 @@ public class Item {
 
 
     /**
-     * @returns int weight of an item
+     * @return int weight of an item
      */
     public int getWeight() {
         return weight;
