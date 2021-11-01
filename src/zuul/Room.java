@@ -21,7 +21,7 @@ import java.util.Set;
  * @version 2006.03.30
  */
 public class Room {
-    public String description;
+    private String description;
     private HashMap<Direction, Room> exits;
     private ArrayList<Character> characters;
     private ArrayList<Item> items;
@@ -116,7 +116,7 @@ public class Room {
      * Checks if Room contains an item with the given description
      *
      * @param description the item to be checked within room
-     * @ return the item's weight if found in room or 0 if none
+     * @return the item's weight if found in room or 0 if none
      */
     public int containsItem(String description) {
 

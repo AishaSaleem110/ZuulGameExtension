@@ -19,6 +19,9 @@ import zuul.Players.Player;
 public class PlayerAction implements Action{
     Game game;
 
+    /**
+     * parameter less constructor which creates an instance of PlayerAction class
+     */
     public PlayerAction() {
         this.game = Game.getInstance();
     }

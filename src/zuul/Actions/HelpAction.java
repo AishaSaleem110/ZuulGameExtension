@@ -24,6 +24,9 @@ import zuul.Players.Player;
 public class HelpAction implements Action {
     Parser parser;
 
+    /**
+     * parameter less constructor which creates an instance of HelpAction class
+     */
     public HelpAction() {
         this.parser = Parser.getInstance();
     }

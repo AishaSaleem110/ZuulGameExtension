@@ -14,6 +14,9 @@ import zuul.Players.Player;
  * @version 2021.10.25
  */
 public class LookAction implements Action {
+    /**
+     * parameter less constructor which creates an instance of LookAction class
+     */
     public LookAction() {
     }
 

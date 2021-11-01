@@ -17,6 +17,9 @@ import zuul.Players.Player;
 
 public class DropAction implements Action {
 
+    /**
+     * parameter less constructor which creates an instance of DropAction class
+     */
     public DropAction() {
     }
 

@@ -19,6 +19,9 @@ import zuul.Players.Player;
 
 public class GoAction implements Action {
 
+    /**
+     * parameter less constructor which creates an instance of GoAction class
+     */
     public GoAction() {
     }
 

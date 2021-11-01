@@ -19,6 +19,11 @@ public class ActionInvoker {
     Command command;
     Player currentPlayer;
 
+    /**
+     *
+     * @param command- command object containing details of command
+     * @param currentPlayer- current player invoking command
+     */
     public ActionInvoker(Command command, Player currentPlayer) {
         this.command = command;
         this.currentPlayer = currentPlayer;
@@ -26,7 +31,7 @@ public class ActionInvoker {
 
     /**
      * It internally calls the execute method of the action object which in turn executes the command
-     * @return
+     * @return string returned from execute command
      */
     public String executeAction() {
         CommandWord commandWord = command.getCommandWord();

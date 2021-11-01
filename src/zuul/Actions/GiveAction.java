@@ -16,6 +16,9 @@ import zuul.Players.Player;
  */
 
 public class GiveAction implements Action {
+    /**
+     * parameter less constructor which creates an instance of GiveAction class
+     */
     public GiveAction() {
     }
 

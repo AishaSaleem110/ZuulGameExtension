@@ -15,6 +15,9 @@ import zuul.Players.Player;
  */
 
 public class UnknownAction implements Action{
+    /**
+     * parameter less constructor which creates an instance of UnknownAction class
+     */
     public UnknownAction() {
     }
 

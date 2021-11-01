@@ -16,6 +16,10 @@ import zuul.Players.Player;
  */
 
 public class QuitAction implements Action {
+
+    /**
+     * parameter less constructor which creates an instance of QuitAction class
+     */
     public QuitAction() {
     }
 
