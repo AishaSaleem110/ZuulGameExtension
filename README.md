@@ -2,7 +2,7 @@
 
 This is an extension of Zuul game with massive refactoring to implement Object Oriented Principles, Responsibility designing and Design Patterns to add support for new features.
 
-#Background
+# Background
 For some unknown reason (1980s nostalgia?), the small games company that you work for has decided to produce a new adventure game, The World of Zuul. The company hopes that this will be the First of a series of products (some in the Zuul series, others quite different but all sharing
 the same underlying structure). It is therefore essential that the code produced is easy to maintain and to extend. They plan to release games in single-player and multi-player versions. They also intend to have some AI (artificial intelligence) | computer-controlled characters than can move
 through the game.
